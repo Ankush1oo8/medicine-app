@@ -31,6 +31,9 @@ export function SiteFooter() {
               <li>
                 <Link href="/terms">Terms &amp; Conditions</Link>
               </li>
+              <li>
+                <Link href="/privacy">Privacy Policy</Link>
+              </li>
             </ul>
           </div>
 
@@ -99,6 +102,7 @@ export function SiteFooter() {
           <p>© {new Date().getFullYear()} Medilo. All rights reserved.</p>
           <div className="flex flex-wrap gap-4">
             <Link href="/terms">Terms</Link>
+            <Link href="/privacy">Privacy</Link>
             <Link href="/contact">Contact</Link>
             <Link href="/about">About</Link>
           </div>

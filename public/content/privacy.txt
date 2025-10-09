@@ -1,0 +1,53 @@
+Privacy Policy
+Effective Date: 10 May 2025
+9 Fold Technologies Pvt Ltd ("Company," "we," "our," or "us") respects your privacy and is committed to protecting your personal and business information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use the Medilo mobile application and website ("Platform"). Please read this policy carefully to understand our practices.
+
+1. Information We Collect
+We may collect the following types of information:
+• Business Information: Drug License, GST certificate, company name, business address.
+• Personal Information: Contact person’s name, mobile number, email address.
+• Account Information: Login credentials, OTP verification details.
+• Transaction Data: Inquiries, quotes, orders, payment records.
+• Usage Data: Log files, device information, IP address, browser type, operating system, and usage patterns.
+
+2. How We Use Your Information
+We use the information we collect to:
+• Verify your business eligibility and registration.
+• Provide and maintain our services, including processing inquiries, quotes, and orders.
+• Communicate with you regarding updates, inquiries, orders, and support.
+• Improve our Platform, user experience, and service offerings.
+• Ensure legal compliance and prevent fraud or misuse.
+
+3. Sharing of Information
+We may share your information:
+• With trusted third-party service providers who assist in operating the Platform (e.g., payment gateways, delivery partners).
+• With regulatory authorities or law enforcement if required by law.
+• During a business transfer or merger, where your data may be transferred as part of the business assets.
+
+4. Data Security
+We implement reasonable technical and organizational safeguards to protect your data against unauthorized access, loss, misuse, or alteration. However, no system is entirely secure, and we cannot guarantee absolute security.
+
+5. Data Retention
+We retain your data for as long as necessary to fulfill the purposes outlined in this policy or as required by law.
+
+6. User Rights
+You have the right to:
+• Access and review your personal information.
+• Request correction or deletion of inaccurate or outdated information.
+• Withdraw consent for certain data uses (subject to legal or contractual restrictions).
+
+7. Cookies and Tracking
+We may use cookies or similar technologies to enhance user experience, analyze site usage, and improve our services. You can modify your browser settings to decline cookies, but this may affect Platform functionality.
+
+8. Third-Party Links
+The Platform may contain links to third-party websites or services. We are not responsible for the privacy practices or content of those third parties.
+
+9. Updates to This Policy
+We may update this Privacy Policy from time to time. We will notify you of material changes by posting the updated policy on the Platform. Continued use of the Platform constitutes acceptance of the revised policy.
+
+10. Contact Us
+If you have any questions or concerns about this Privacy Policy, please contact us at:
+• Email:
+• Phone:
+
+By using Medilo, you acknowledge that you have read and understood this Privacy Policy.

@@ -4,111 +4,59 @@ Welcome to Medilo! These Terms of Use ("Terms") govern your access to and use of
 
 1. Acceptance of Terms
 By registering, accessing, or using the Platform, you acknowledge that you have read, understood, and agreed to be bound by these Terms, our Privacy Policy, and any additional guidelines provided on the Platform.
+
 2. Eligibility
 To use the Platform, you must:
-•	Be a registered business entity with a valid Drug License and GST certificate.
-•	Be at least 18 years old or the age of majority in your jurisdiction.
-•	Provide accurate, complete, and updated registration information.
+• Be a registered business entity with a valid Drug License and GST certificate.
+• Be at least 18 years old or the age of majority in your jurisdiction.
+• Provide accurate, complete, and updated registration information.
+
 3. User Registration and Account
-•	You are required to register using your mobile number with OTP verification.
-•	You must upload valid Drug License and GST documentation for verification.
-•	You are responsible for maintaining the confidentiality of your account credentials and for all activities under your account.
+• You are required to register using your mobile number with OTP verification.
+• You must upload valid Drug License and GST documentation for verification.
+• You are responsible for maintaining the confidentiality of your account credentials and for all activities under your account.
+
 4. Platform Use
-•	The Platform enables you to search for pharmaceutical products, place inquiries, receive quotes, and place orders.
-•	All inquiries and orders are subject to backend verification and approval.
-•	The Platform reserves the right to modify or discontinue services without prior notice.
+• The Platform enables you to search for pharmaceutical products, place inquiries, receive quotes, and place orders.
+• All inquiries and orders are subject to backend verification and approval.
+• The Platform reserves the right to modify or discontinue services without prior notice.
+
 5. Pricing, Payments, and Orders
-•	Product prices, quotes, and delivery timelines provided on the Platform are estimates and subject to change.
-•	Orders require a 10% advance payment and the remaining balance upon delivery.
-•	We reserve the right to reject or cancel any order due to verification failure, payment issues, or stock unavailability.
+• Product prices, quotes, and delivery timelines provided on the Platform are estimates and subject to change.
+• Orders require a 10% advance payment and the remaining balance upon delivery.
+• We reserve the right to reject or cancel any order due to verification failure, payment issues, or stock unavailability.
+
 6. User Responsibilities
-•	Provide true and accurate business and licensing information.
-•	Use the Platform only for lawful business transactions.
-•	Not misuse or tamper with the Platform, including attempting unauthorized access or interfering with its operations.
+• Provide true and accurate business and licensing information.
+• Use the Platform only for lawful business transactions.
+• Not misuse or tamper with the Platform, including attempting unauthorized access or interfering with its operations.
+
 7. Intellectual Property
-•	All content, trademarks, logos, software, and designs on the Platform are the property of the Company or its licensors.
-•	You are granted a limited, non-transferable, non-exclusive license to use the Platform for its intended purposes.
+• All content, trademarks, logos, software, and designs on the Platform are the property of the Company or its licensors.
+• You are granted a limited, non-transferable, non-exclusive license to use the Platform for its intended purposes.
+
 8. Confidentiality and Data Privacy
-•	We respect your privacy. Please refer to our Privacy Policy for details on how we collect, use, and protect your data.
-•	You agree not to disclose any confidential information obtained through the Platform without prior written consent.
+• We respect your privacy. Please refer to our Privacy Policy for details on how we collect, use, and protect your data.
+• You agree not to disclose any confidential information obtained through the Platform without prior written consent.
+
 9. Disclaimers and Limitation of Liability
-•	The Platform and services are provided "as is" without warranties of any kind.
-•	We do not guarantee uninterrupted, error-free operation or accuracy of product information.
-•	To the fullest extent permitted by law, the Company is not liable for any indirect, incidental, or consequential damages arising from your use of the Platform.
+• The Platform and services are provided "as is" without warranties of any kind.
+• We do not guarantee uninterrupted, error-free operation or accuracy of product information.
+• To the fullest extent permitted by law, the Company is not liable for any indirect, incidental, or consequential damages arising from your use of the Platform.
+
 10. Termination
-•	We reserve the right to suspend or terminate your access to the Platform at any time, without notice, for violation of these Terms or applicable laws.
+• We reserve the right to suspend or terminate your access to the Platform at any time, without notice, for violation of these Terms or applicable laws.
+
 11. Governing Law and Dispute Resolution
-•	These Terms are governed by the laws of India.
-•	Any disputes will be resolved through binding arbitration or the courts of the applicable city, as applicable.
+• These Terms are governed by the laws of India.
+• Any disputes will be resolved through binding arbitration or the courts of the applicable city, as applicable.
+
 12. Changes to Terms
-•	We may update these Terms from time to time. Continued use of the Platform constitutes acceptance of the revised Terms.
+• We may update these Terms from time to time. Continued use of the Platform constitutes acceptance of the revised Terms.
+
 13. Contact Information
 For any questions or concerns, please contact us at:
-•	Email:
-•	Phone:
+• Email:
+• Phone:
 
 By using Medilo, you agree to these Terms of Use. Thank you for choosing us as your pharma sourcing partner!
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Privacy Policy
-Effective Date: 10 May 2025
-9 Fold Technologies Pvt Ltd ("Company," "we," "our," or "us") respects your privacy and is committed to protecting your personal and business information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use the Medilo mobile application and website ("Platform"). Please read this policy carefully to understand our practices.
-
-1. Information We Collect
-We may collect the following types of information:
-•	Business Information: Drug License, GST certificate, company name, business address.
-•	Personal Information: Contact person’s name, mobile number, email address.
-•	Account Information: Login credentials, OTP verification details.
-•	Transaction Data: Inquiries, quotes, orders, payment records.
-•	Usage Data: Log files, device information, IP address, browser type, operating system, and usage patterns.
-2. How We Use Your Information
-We use the information we collect to:
-•	Verify your business eligibility and registration.
-•	Provide and maintain our services, including processing inquiries, quotes, and orders.
-•	Communicate with you regarding updates, inquiries, orders, and support.
-•	Improve our Platform, user experience, and service offerings.
-•	Ensure legal compliance and prevent fraud or misuse.
-3. Sharing of Information
-We may share your information:
-•	With trusted third-party service providers who assist in operating the Platform (e.g., payment gateways, delivery partners).
-•	With regulatory authorities or law enforcement if required by law.
-•	During a business transfer or merger, where your data may be transferred as part of the business assets.
-4. Data Security
-We implement reasonable technical and organizational safeguards to protect your data against unauthorized access, loss, misuse, or alteration. However, no system is entirely secure, and we cannot guarantee absolute security.
-5. Data Retention
-We retain your data for as long as necessary to fulfill the purposes outlined in this policy or as required by law.
-6. User Rights
-You have the right to:
-•	Access and review your personal information.
-•	Request correction or deletion of inaccurate or outdated information.
-•	Withdraw consent for certain data uses (subject to legal or contractual restrictions).
-7. Cookies and Tracking
-We may use cookies or similar technologies to enhance user experience, analyze site usage, and improve our services. You can modify your browser settings to decline cookies, but this may affect Platform functionality.
-8. Third-Party Links
-The Platform may contain links to third-party websites or services. We are not responsible for the privacy practices or content of those third parties.
-9. Updates to This Policy
-We may update this Privacy Policy from time to time. We will notify you of material changes by posting the updated policy on the Platform. Continued use of the Platform constitutes acceptance of the revised policy.
-10. Contact Us
-If you have any questions or concerns about this Privacy Policy, please contact us at:
-•	Email:
-•	Phone:
-
-By using Medilo, you acknowledge that you have read and understood this Privacy Policy.

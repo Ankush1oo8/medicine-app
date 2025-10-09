@@ -5,7 +5,7 @@ import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 import { SiteHeader } from "@/components/site-header"
-import { SiteFooter } from "@/components/site-footer"
+import { FooterSwitch } from "@/components/footer-switch"
 import { Suspense } from "react"
 
 export const metadata: Metadata = {
@@ -26,7 +26,7 @@ export default function RootLayout({
           <div className="min-h-dvh flex flex-col bg-background">
             <SiteHeader />
             <main className="flex-1">{children}</main>
-            <SiteFooter />
+            <FooterSwitch />
           </div>
         </Suspense>
         <Analytics />

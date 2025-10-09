@@ -6,6 +6,15 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { cn } from "@/lib/utils"
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog"
+import { medicines } from "@/lib/demo-data"
 
 export default function OrderDetailPage({ params }: { params: { id: string } }) {
   const order = orders.find((o) => o.id === params.id)
@@ -49,20 +58,52 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
             <section>
               <h2 className="text-primary font-medium">Items</h2>
               <div className="mt-2 divide-y rounded-xl border">
-                {order.items.map((it) => (
-                  <div key={it.id} className="flex items-center justify-between p-3">
-                    <div className="min-w-0">
-                      <Link href={`/medicines/${it.medicineId}`} className="font-medium underline">
-                        {it.name}
-                      </Link>
-                      <div className="text-sm text-muted-foreground">Qty: {it.qty}</div>
+                {order.items.map((it) => {
+                  const med = medicines.find((m) => m.id === it.medicineId)
+                  return (
+                    <div key={it.id} className="flex items-center justify-between p-3">
+                      <div className="min-w-0">
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <button className="font-medium underline underline-offset-4 hover:opacity-90">
+                              {it.name}
+                            </button>
+                          </DialogTrigger>
+                          <DialogContent>
+                            <DialogHeader>
+                              <DialogTitle>{med?.name ?? it.name}</DialogTitle>
+                              {med?.salt ? <DialogDescription className="mt-1">{med.salt}</DialogDescription> : null}
+                            </DialogHeader>
+                            <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                              <img
+                                src={
+                                  med?.image ||
+                                  "/placeholder.svg?height=160&width=200&query=medicine%20preview" ||
+                                  "/placeholder.svg"
+                                }
+                                alt={med?.name ?? it.name}
+                                className="w-full h-40 object-contain rounded-md bg-muted"
+                              />
+                              <div className="text-sm space-y-2">
+                                {med?.description ? <p className="text-muted-foreground">{med.description}</p> : null}
+                                {med?.pack ? <p>Pack: {med.pack}</p> : null}
+                                <p className="font-medium">Price: Rs {it.price.toFixed(2)} / pc</p>
+                                <p className="text-muted-foreground">Qty: {it.qty}</p>
+                                <p className="font-semibold">Total: Rs {(it.qty * it.price).toFixed(2)}</p>
+                              </div>
+                            </div>
+                          </DialogContent>
+                        </Dialog>
+                        {/* end popup */}
+                        <div className="text-sm text-muted-foreground">Qty: {it.qty}</div>
+                      </div>
+                      <div className="text-sm font-medium">
+                        {"Rs "}
+                        {(it.qty * it.price).toFixed(2)}
+                      </div>
                     </div>
-                    <div className="text-sm font-medium">
-                      {"Rs "}
-                      {(it.qty * it.price).toFixed(2)}
-                    </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             </section>
 

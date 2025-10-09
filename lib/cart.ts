@@ -4,9 +4,13 @@ import type { Medicine } from "./demo-data"
 export type CartItem = {
   id: string
   name: string
-  price: number
+  price: number // MRP
   qty: number
   image?: string
+  gst?: string // e.g. "5%"
+  ptr?: number // percentage off excluding GST (e.g., 20 for 20%)
+  quote?: number // absolute quoted price (ex-GST)
+  discountPercent?: number // extra discount % after PTR
 }
 
 export type CartState = {
@@ -30,6 +34,36 @@ const setLocal = (k: string, v: unknown) => {
   window.localStorage.setItem(k, JSON.stringify(v))
 }
 
+function calcItemTotals(mrp: number, gstStr = "5%", ptr?: number, quote?: number, discountPercent?: number) {
+  const round2 = (val: number) => Number(val.toFixed(2))
+  const gstPercent = Number(gstStr.replace("%", "")) || 0
+  const exceptGst = (mrp * 100) / (100 + gstPercent)
+
+  let ptrPrice: number
+  if (typeof ptr === "number") {
+    ptrPrice = (exceptGst * (100 - ptr)) / 100
+  } else {
+    // default 20% discount
+    ptrPrice = exceptGst * 0.8
+  }
+
+  if (typeof discountPercent === "number") {
+    const afterDiscount = (ptrPrice * (100 - discountPercent)) / 100
+    const gstAfter = (afterDiscount * gstPercent) / 100
+    const total = afterDiscount + gstAfter
+    return { gst: round2(gstAfter), total: round2(total), ptrPrice, afterDiscount: round2(afterDiscount) }
+  } else if (typeof quote === "number") {
+    const quotePercent = ((ptrPrice - quote) * 100) / ptrPrice
+    const gstAfter = (quote * gstPercent) / 100
+    const total = quote + gstAfter
+    return { gst: round2(gstAfter), total: round2(total), ptrPrice, quotePercent: round2(quotePercent) }
+  }
+
+  const gstAfter = (ptrPrice * gstPercent) / 100
+  const total = ptrPrice + gstAfter
+  return { gst: round2(gstAfter), total: round2(total), ptrPrice }
+}
+
 export function useCart() {
   const { data } = useSWR<CartState>(CART_KEY, () => getLocal<CartState>(CART_KEY, { items: [] }), {
     fallbackData: { items: [] },
@@ -37,7 +71,11 @@ export function useCart() {
   })
 
   const items = data?.items ?? []
-  const total = items.reduce((s, it) => s + it.qty * it.price, 0)
+
+  const total = items.reduce((sum, it) => {
+    const { total } = calcItemTotals(it.price, it.gst ?? "5%", it.ptr, it.quote, it.discountPercent)
+    return sum + it.qty * total
+  }, 0)
 
   return {
     items,
@@ -46,7 +84,15 @@ export function useCart() {
       const next = [...items]
       const idx = next.findIndex((i) => i.id === m.id)
       if (idx >= 0) next[idx].qty += qty
-      else next.push({ id: m.id, name: m.name, price: m.price, qty, image: m.image })
+      else
+        next.push({
+          id: m.id,
+          name: m.name,
+          price: m.price,
+          qty,
+          image: m.image,
+          gst: "5%",
+        })
       const state = { items: next }
       setLocal(CART_KEY, state)
       await mutate(CART_KEY, state, false)

@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { DownloadAppSection } from "@/components/download-app-section"
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
@@ -38,11 +39,11 @@ export default function HomePage() {
       <section className="grid items-center gap-8 rounded-2xl bg-secondary p-8 md:grid-cols-2">
         <div>
           <h1 className="text-3xl md:text-5xl font-bold text-secondary-foreground text-balance">
-            India’s trusted platform for pharmacy ordering
+            India’s trusted B2B pharmacy ordering platform
           </h1>
           <p className="mt-4 max-w-xl text-secondary-foreground/80 leading-relaxed">
-            Order genuine medicines with transparent pricing and quick delivery. Designed to match your mobile app’s
-            clean, sky‑blue experience.
+            Order genuine medicines with transparent pricing and quick delivery—built for licensed pharmacies and
+            distributors.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Button asChild className="rounded-full">
@@ -100,6 +101,11 @@ export default function HomePage() {
             <Link href="/login">Login to Continue</Link>
           </Button>
         </div>
+      </section>
+
+      {/* Download our app section */}
+      <section className="mt-10">
+        <DownloadAppSection />
       </section>
     </div>
   )

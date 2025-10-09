@@ -1,9 +1,16 @@
 "use client"
 
 import { medicines as data } from "@/lib/demo-data"
-import { Input } from "@/components/ui/input"
 import { MedicineCard } from "@/components/medicine-card"
 import { useState, useMemo } from "react"
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+  InputGroupText,
+} from "@/components/ui/input-group"
+import { Search, X } from "lucide-react"
 
 export default function MedicinesPage() {
   const [q, setQ] = useState("")
@@ -22,14 +29,26 @@ export default function MedicinesPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-4">
       <div className="bg-secondary rounded-2xl p-4">
-        <div className="text-lg font-semibold mb-3">Welcome</div>
         <div className="relative">
-          <Input
-            placeholder="Search For Medicines..."
-            className="rounded-full bg-card pl-4"
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-          />
+          <InputGroup className="rounded-full">
+            <InputGroupAddon aria-hidden>
+              <Search className="size-4" />
+              <InputGroupText>Search</InputGroupText>
+            </InputGroupAddon>
+            <InputGroupInput
+              aria-label="Search medicines"
+              placeholder="Search medicines by name, salt, or description..."
+              value={q}
+              onChange={(e) => setQ(e.target.value)}
+            />
+            {q ? (
+              <InputGroupAddon align="inline-end">
+                <InputGroupButton aria-label="Clear search" onClick={() => setQ("")} size="icon-sm" variant="ghost">
+                  <X className="size-4" />
+                </InputGroupButton>
+              </InputGroupAddon>
+            ) : null}
+          </InputGroup>
         </div>
       </div>
 
