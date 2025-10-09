@@ -1,77 +1,72 @@
 "use client"
 
-import { Header } from "@/components/layout/header"
-import { Footer } from "@/components/layout/footer"
-import { ProfileMenuItem } from "@/components/profile/profile-menu-item"
-import { getCurrentUser } from "@/lib/auth"
-import { User, Briefcase, ShoppingCart, BookOpen, Award, Upload, Info, UserPlus } from "lucide-react"
+import { useAuth } from "@/lib/auth"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
 
 export default function ProfilePage() {
-  const user = getCurrentUser()
+  const { user, logout } = useAuth()
+
+  if (!user) {
+    return (
+      <div className="mx-auto max-w-3xl px-4 py-6">
+        <div className="rounded-2xl border bg-card p-6">
+          <div className="mb-2">You are not logged in.</div>
+          <Button asChild className="rounded-full">
+            <Link href="/login">Go to Login</Link>
+          </Button>
+        </div>
+      </div>
+    )
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary/5 to-background">
-      <Header />
+    <div className="mx-auto max-w-3xl px-4 py-6">
+      <div className="rounded-2xl bg-secondary p-5">
+        <h1 className="text-xl font-bold">Account</h1>
+      </div>
 
-      <main className="container mx-auto px-4 py-8">
-        {/* Header Section */}
-        <div className="bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-lg p-6 mb-8">
-          <h1 className="text-2xl font-bold mb-2">Account</h1>
-          <div className="flex items-center space-x-4">
-            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-              <User className="h-6 w-6" />
-            </div>
-            <div>
-              <h2 className="text-xl font-semibold">{user?.name || "ram"}</h2>
-              <p className="text-primary-foreground/80">{user?.phone || "+911234567890"}</p>
-            </div>
-          </div>
+      <div className="mt-4 rounded-2xl border bg-card divide-y">
+        <div className="p-4">
+          <div className="font-semibold">{user.name.toLowerCase()}</div>
+          <div className="text-sm text-muted-foreground">{user.phone}</div>
         </div>
-
-        {/* Profile Menu */}
-        <div className="max-w-2xl mx-auto space-y-4">
-          <ProfileMenuItem
-            href="/profile/details"
-            icon={UserPlus}
-            title="Profile"
-            description="Name, Mobile, Email Account"
-          />
-
-          <ProfileMenuItem
-            href="/profile/business"
-            icon={Briefcase}
-            title="Business Details"
-            description="Name, Documents, Tax Certificates"
-          />
-
-          <ProfileMenuItem
-            href="/profile/orders"
-            icon={ShoppingCart}
-            title="Order History"
-            description="History, Payment Status"
-          />
-
-          <ProfileMenuItem href="/profile/ledger" icon={BookOpen} title="Ledger" description="Balance Sheet" />
-
-          <ProfileMenuItem
-            href="/profile/milestones"
-            icon={Award}
-            title="MileStones"
-            description="Rewards, Gifts, Achievement"
-          />
-
-          <ProfileMenuItem
-            href="/profile/license"
-            icon={Upload}
-            title="Upload License"
-            description="Add or Change License"
-          />
-
-          <ProfileMenuItem href="/profile/about" icon={Info} title="About" description="Know more about MediCare" />
+        <div className="p-4">
+          <div className="font-medium">Profile</div>
+          <div className="text-sm text-muted-foreground">Name, Mobile, Email Account</div>
         </div>
-      </main>
+        <div className="p-4">
+          <div className="font-medium">Business Details</div>
+          <div className="text-sm text-muted-foreground">Name, Documents, Tax Certificates</div>
+        </div>
+        <div className="p-4">
+          <div className="font-medium">Order History</div>
+          <div className="text-sm text-muted-foreground">History, Payment Status</div>
+        </div>
+        <div className="p-4">
+          <div className="font-medium">Ledger</div>
+          <div className="text-sm text-muted-foreground">Balance Sheet</div>
+        </div>
+        <div className="p-4">
+          <div className="font-medium">Milestones</div>
+          <div className="text-sm text-muted-foreground">Rewards, Gifts, Achievement</div>
+        </div>
+        <div className="p-4">
+          <div className="font-medium">Upload License</div>
+          <div className="text-sm text-muted-foreground">Add or Change License</div>
+        </div>
+      </div>
 
-      <Footer />
+      <div className="mt-4 flex gap-2">
+        <Button variant="secondary" asChild className="rounded-full">
+          <a href="/images/account-reference.jpg" target="_blank" rel="noreferrer">
+            View Reference
+          </a>
+        </Button>
+        <Button className="rounded-full" onClick={logout}>
+          Logout
+        </Button>
+      </div>
     </div>
   )
 }

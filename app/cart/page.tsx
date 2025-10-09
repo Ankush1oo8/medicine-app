@@ -1,98 +1,71 @@
 "use client"
 
-import { useCart } from "@/contexts/cart-context"
-import { CartItem } from "@/components/cart/cart-item"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ShoppingCart, ArrowLeft } from "lucide-react"
 import Link from "next/link"
+import { useCart } from "@/lib/cart"
+import { useAuth } from "@/lib/auth"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 export default function CartPage() {
-  const { items, total, itemCount, clearCart } = useCart()
-
-  if (items.length === 0) {
-    return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-2xl mx-auto text-center">
-          <ShoppingCart className="h-24 w-24 mx-auto text-muted-foreground mb-6" />
-          <h1 className="text-2xl font-bold mb-4">Your Cart is Empty</h1>
-          <p className="text-muted-foreground mb-8">Add some medicines to your cart to get started</p>
-          <Link href="/medicines">
-            <Button size="lg">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Continue Shopping
-            </Button>
-          </Link>
-        </div>
-      </div>
-    )
-  }
+  const { items, total, update, remove, clear } = useCart()
+  const { user } = useAuth()
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-3xl font-bold">Shopping Cart</h1>
-            <p className="text-muted-foreground">{itemCount} items in your cart</p>
+    <div className="mx-auto max-w-5xl px-4 py-6 space-y-4">
+      <div className="rounded-2xl border bg-card">
+        {items.length === 0 ? (
+          <div className="p-6 text-center text-muted-foreground">
+            Your cart is empty.{" "}
+            <Link href="/medicines" className="underline">
+              Browse medicines
+            </Link>
           </div>
-          <Link href="/medicines">
-            <Button variant="outline">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Continue Shopping
-            </Button>
-          </Link>
-        </div>
-
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Cart Items */}
-          <div className="lg:col-span-2">
-            <div className="space-y-4">
-              {items.map((item) => (
-                <CartItem key={item.id} item={item} />
-              ))}
-            </div>
-
-            <div className="mt-6">
-              <Button variant="outline" onClick={clearCart} className="text-destructive bg-transparent">
-                Clear Cart
-              </Button>
-            </div>
-          </div>
-
-          {/* Order Summary */}
-          <div className="lg:col-span-1">
-            <Card className="sticky top-4">
-              <CardHeader>
-                <CardTitle>Order Summary</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex justify-between">
-                  <span>Subtotal ({itemCount} items)</span>
-                  <span>Rs {total.toFixed(2)}</span>
+        ) : (
+          <ul className="divide-y">
+            {items.map((it) => (
+              <li key={it.id} className="p-4 flex items-center gap-3">
+                <img
+                  src={it.image || "/placeholder.svg?height=64&width=64&query=medicine"}
+                  alt=""
+                  className="size-14 rounded-md bg-muted object-contain"
+                />
+                <div className="flex-1">
+                  <div className="font-medium">{it.name}</div>
+                  <div className="text-sm text-muted-foreground">Rs {it.price.toFixed(2)}/pc</div>
                 </div>
-                <div className="flex justify-between">
-                  <span>Delivery Fee</span>
-                  <span>Rs 50.00</span>
-                </div>
-                <div className="border-t pt-4">
-                  <div className="flex justify-between font-bold text-lg">
-                    <span>Total</span>
-                    <span>Rs {(total + 50).toFixed(2)}</span>
-                  </div>
-                </div>
-                <Link href="/checkout">
-                  <Button className="w-full" size="lg">
-                    Proceed to Checkout
+                <div className="flex items-center gap-2">
+                  <Input
+                    type="number"
+                    min={1}
+                    value={it.qty}
+                    onChange={(e) => update(it.id, Math.max(1, Number(e.target.value)))}
+                    className="w-20"
+                  />
+                  <Button variant="secondary" onClick={() => remove(it.id)} className="rounded-full">
+                    Remove
                   </Button>
-                </Link>
-                <p className="text-xs text-muted-foreground text-center">
-                  * Prescription medicines require valid prescription
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      <div className="flex items-center justify-between rounded-2xl border bg-card p-4">
+        <div className="font-semibold">Total: Rs {total.toFixed(2)}</div>
+        <div className="flex gap-2">
+          <Button variant="secondary" onClick={clear} className="rounded-full" disabled={items.length === 0}>
+            Clear
+          </Button>
+          {user ? (
+            <Button className="rounded-full" disabled={items.length === 0}>
+              Checkout
+            </Button>
+          ) : (
+            <Button asChild className="rounded-full" disabled={items.length === 0}>
+              <Link href="/login">Login to Checkout</Link>
+            </Button>
+          )}
         </div>
       </div>
     </div>

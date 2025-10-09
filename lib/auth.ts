@@ -1,38 +1,50 @@
-// TODO: Implement Firebase authentication
-// import { initializeApp } from 'firebase/app'
-// import { getAuth } from 'firebase/auth'
-// import { getFirestore } from 'firebase/firestore'
+"use client"
 
-// const firebaseConfig = {
-//   // Your Firebase config
-// }
+import useSWR, { mutate } from "swr"
 
-// const app = initializeApp(firebaseConfig)
-// export const auth = getAuth(app)
-// export const db = getFirestore(app)
-
-// Dummy auth context for now
-export interface User {
-  id: string
+export type AuthUser = {
   name: string
   email: string
-  phone: string
+  phone?: string
 }
 
-// Mock user data
-export const mockUser: User = {
-  id: "1",
-  name: "Ram",
-  email: "ram@example.com",
-  phone: "+911234567890",
+const AUTH_KEY = "demo-auth"
+
+const getLocal = <T,>(k: string, fallback: T): T => {
+  if (typeof window === "undefined") return fallback
+  try {
+    const raw = window.localStorage.getItem(k)
+    return raw ? (JSON.parse(raw) as T) : fallback
+  } catch {
+    return fallback
+  }
 }
 
-export const isAuthenticated = () => {
-  // TODO: Check Firebase auth state
-  return true // Mock authenticated state
+const setLocal = (k: string, v: unknown) => {
+  if (typeof window === "undefined") return
+  window.localStorage.setItem(k, JSON.stringify(v))
 }
 
-export const getCurrentUser = (): User | null => {
-  // TODO: Get current user from Firebase
-  return mockUser // Mock user
+export function useAuth() {
+  const { data } = useSWR<AuthUser | null>(AUTH_KEY, () => getLocal<AuthUser | null>(AUTH_KEY, null), {
+    fallbackData: null,
+    revalidateOnFocus: false,
+  })
+  return {
+    user: data ?? null,
+    login: async (email: string, password: string) => {
+      // demo credentials
+      if (email === "demo@pharma.com" && password === "demo123") {
+        const u: AuthUser = { name: "Ram", email, phone: "+911234567890" }
+        setLocal(AUTH_KEY, u)
+        await mutate(AUTH_KEY, u, false)
+        return { ok: true }
+      }
+      return { ok: false, error: "Invalid demo credentials" }
+    },
+    logout: async () => {
+      setLocal(AUTH_KEY, null)
+      await mutate(AUTH_KEY, null, false)
+    },
+  }
 }
