@@ -5,6 +5,8 @@ import { useCart } from "@/lib/cart"
 import { useAuth } from "@/lib/auth"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { ShoppingCart } from "lucide-react"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 
 export default function CartPage() {
   const { items, total, update, remove, clear } = useCart()
@@ -12,6 +14,21 @@ export default function CartPage() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-6 space-y-4">
+      <div className="flex items-center justify-between">
+        <div className="inline-flex items-center gap-2">
+          <div className="inline-flex h-10 w-10 items-center justify-center rounded-full border bg-card">
+            <ShoppingCart className="h-5 w-5" aria-hidden="true" />
+          </div>
+          <h1 className="text-lg font-semibold">Cart</h1>
+        </div>
+        {user ? (
+          <Avatar className="h-9 w-9">
+            <AvatarImage src="/generic-user-avatar.jpg" alt="Profile" />
+            <AvatarFallback>PR</AvatarFallback>
+          </Avatar>
+        ) : null}
+      </div>
+
       <div className="rounded-2xl border bg-card">
         {items.length === 0 ? (
           <div className="p-6 text-center text-muted-foreground">

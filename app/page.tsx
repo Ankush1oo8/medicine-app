@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { DownloadAppSection } from "@/components/download-app-section"
+import { LoginCta } from "@/components/login-cta"
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
@@ -96,11 +97,8 @@ export default function HomePage() {
           <StepCard n={2} title="Browse & Verify" text="Open medicine cards for stock and pricing details." />
           <StepCard n={3} title="Order & Grow" text="Add to cart and place orders—track them from Orders." />
         </div>
-        <div className="mt-6 flex justify-center">
-          <Button asChild className="rounded-full">
-            <Link href="/login">Login to Continue</Link>
-          </Button>
-        </div>
+        {/* Conditionally render LoginCta based on authentication status */}
+        <LoginCta />
       </section>
 
       {/* Download our app section */}

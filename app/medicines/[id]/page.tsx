@@ -42,10 +42,12 @@ export default function MedicineDetail({ params }: { params: { id: string } }) {
                 </Badge>
                 <Badge className="rounded-full">{m.stock > 0 ? `In Stock: ${m.stock}` : "Out of stock"}</Badge>
               </div>
-              <div className="text-primary font-semibold">MRP: Rs {m.price.toFixed(2)}</div>
 
               <div className="mt-4 rounded-xl border">
                 <div className="grid grid-cols-2 gap-2 p-3 text-sm">
+                  <span className="text-muted-foreground">MRP</span>
+                  <span className="text-right line-through text-muted-foreground">Rs {m.price.toFixed(2)}</span>
+
                   <span className="text-muted-foreground">PTR Price</span>
                   <span className="text-right">Rs {ptr.toFixed(2)}</span>
                   <span className="text-green-600">Discount (10%)</span>

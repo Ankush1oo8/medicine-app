@@ -3,6 +3,7 @@
 import { useAuth } from "@/lib/auth"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 
 export default function ProfilePage() {
   const { user, logout } = useAuth()
@@ -22,7 +23,11 @@ export default function ProfilePage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-6">
-      <div className="rounded-2xl bg-secondary p-5">
+      <div className="rounded-2xl bg-secondary p-5 flex items-center gap-3">
+        <Avatar className="h-10 w-10">
+          <AvatarImage src="/generic-user-avatar.jpg" alt="Profile" />
+          <AvatarFallback>PR</AvatarFallback>
+        </Avatar>
         <h1 className="text-xl font-bold">Account</h1>
       </div>
 
@@ -58,11 +63,7 @@ export default function ProfilePage() {
       </div>
 
       <div className="mt-4 flex gap-2">
-        <Button variant="secondary" asChild className="rounded-full">
-          <a href="/images/account-reference.jpg" target="_blank" rel="noreferrer">
-            View Reference
-          </a>
-        </Button>
+        {/* Removed View Reference button */}
         <Button className="rounded-full" onClick={logout}>
           Logout
         </Button>

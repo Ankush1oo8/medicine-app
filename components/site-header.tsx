@@ -6,6 +6,8 @@ import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { useCart } from "@/lib/cart"
 import { useAuth } from "@/lib/auth"
+import { ShoppingCart, User2 } from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export function SiteHeader() {
   const pathname = usePathname()
@@ -72,38 +74,63 @@ export function SiteHeader() {
                 >
                   Orders
                 </Link>
-                <Link
-                  className={cn(
-                    "transition-colors underline-offset-8 hover:underline",
-                    isActive("/profile") && "text-primary font-medium",
-                  )}
-                  href="/profile"
-                >
-                  Profile
-                </Link>
               </>
             )}
-            {!user && (
+          </nav>
+
+          {/* Desktop icon group */}
+          <div className="hidden md:flex items-center gap-3">
+            <Link
+              href="/cart"
+              aria-label="Cart"
+              className={cn(
+                "relative inline-flex h-10 w-10 items-center justify-center rounded-full border hover:bg-muted transition-colors",
+                isActive("/cart") && "ring-2 ring-primary/30",
+              )}
+              title="Cart"
+            >
+              <ShoppingCart className="h-5 w-5" aria-hidden="true" />
+              {items.length > 0 && (
+                <span className="absolute -top-1 -right-1 rounded-full bg-primary text-primary-foreground text-[10px] px-1.5 py-0.5">
+                  {items.length}
+                </span>
+              )}
+              <span className="sr-only">Cart</span>
+            </Link>
+
+            {user ? (
               <Link
+                href="/profile"
+                aria-label="Profile"
                 className={cn(
-                  "transition-colors underline-offset-8 hover:underline",
-                  isActive("/login") && "text-primary font-medium",
+                  "inline-flex h-10 w-10 items-center justify-center rounded-full border hover:bg-muted transition-colors",
+                  isActive("/profile") && "ring-2 ring-primary/30",
                 )}
-                href="/login"
+                title="Profile"
               >
-                Login
+                <Avatar className="h-9 w-9">
+                  <AvatarImage src="/generic-user-avatar.jpg" alt="Profile" />
+                  <AvatarFallback>
+                    <User2 className="h-4 w-4" />
+                  </AvatarFallback>
+                </Avatar>
+                <span className="sr-only">Profile</span>
+              </Link>
+            ) : (
+              <Link
+                href="/login"
+                aria-label="Login"
+                className={cn(
+                  "inline-flex h-10 items-center gap-2 rounded-full border px-4 hover:bg-muted transition-colors",
+                  isActive("/login") && "ring-2 ring-primary/30",
+                )}
+                title="Login"
+              >
+                <User2 className="h-5 w-5" aria-hidden="true" />
+                <span>Login</span>
               </Link>
             )}
-            <Link
-              className={cn(
-                "transition-colors underline-offset-8 hover:underline",
-                isActive("/cart") && "text-primary font-medium",
-              )}
-              href="/cart"
-            >
-              Cart{items.length ? ` (${items.length})` : ""}
-            </Link>
-          </nav>
+          </div>
 
           {/* Mobile collapse button (no icons) */}
           <button
@@ -180,40 +207,59 @@ export function SiteHeader() {
                 >
                   Orders
                 </Link>
-                <Link
-                  onClick={() => setOpen(false)}
-                  className={cn(
-                    "transition-colors underline-offset-8 hover:underline",
-                    isActive("/profile") && "text-primary font-medium",
-                  )}
-                  href="/profile"
-                >
-                  Profile
-                </Link>
               </>
             )}
-            {!user && (
+            {/* mobile icon row remains as the way to access profile/cart */}
+            <div className="flex items-center gap-3 pt-2">
               <Link
-                onClick={() => setOpen(false)}
+                href="/cart"
+                aria-label="Cart"
                 className={cn(
-                  "transition-colors underline-offset-8 hover:underline",
-                  isActive("/login") && "text-primary font-medium",
+                  "relative inline-flex h-10 w-10 items-center justify-center rounded-full border hover:bg-muted transition-colors",
+                  isActive("/cart") && "bg-muted",
                 )}
-                href="/login"
+                onClick={() => setOpen(false)}
+                title="Cart"
               >
-                Login
+                <ShoppingCart className="h-5 w-5" />
+                {items.length > 0 && (
+                  <span className="absolute -top-1 -right-1 rounded-full bg-primary text-primary-foreground text-[10px] px-1.5 py-0.5">
+                    {items.length}
+                  </span>
+                )}
               </Link>
-            )}
-            <Link
-              onClick={() => setOpen(false)}
-              className={cn(
-                "transition-colors underline-offset-8 hover:underline",
-                isActive("/cart") && "text-primary font-medium",
+              {user ? (
+                <Link
+                  href="/profile"
+                  aria-label="Profile"
+                  className={cn(
+                    "inline-flex h-10 w-10 items-center justify-center rounded-full border hover:bg-muted transition-colors",
+                    isActive("/profile") && "bg-muted",
+                  )}
+                  onClick={() => setOpen(false)}
+                  title="Profile"
+                >
+                  <Avatar className="h-7 w-7">
+                    <AvatarImage src="/generic-user-avatar.jpg" alt="Profile" />
+                    <AvatarFallback className="text-[10px]">PR</AvatarFallback>
+                  </Avatar>
+                </Link>
+              ) : (
+                <Link
+                  href="/login"
+                  aria-label="Login"
+                  className={cn(
+                    "inline-flex h-10 items-center gap-2 rounded-full border px-4 hover:bg-muted transition-colors",
+                    isActive("/login") && "bg-muted",
+                  )}
+                  onClick={() => setOpen(false)}
+                  title="Login"
+                >
+                  <User2 className="h-5 w-5" />
+                  <span className="text-sm">Login</span>
+                </Link>
               )}
-              href="/cart"
-            >
-              Cart{items.length ? ` (${items.length})` : ""}
-            </Link>
+            </div>
           </div>
         </div>
       </div>
