@@ -2,9 +2,9 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
       <section className="rounded-2xl border bg-card p-6 md:p-8">
-        <h1 className="text-3xl font-bold text-pretty">About Medilo</h1>
+        <h1 className="text-3xl font-bold text-pretty">About Order@VPA</h1>
         <p className="mt-3 text-muted-foreground leading-relaxed">
-          Medilo is a modern B2B/B2C pharmacy marketplace built for speed, reliability, and compliance. We partner with
+          Order@VPA is a modern B2B/B2C pharmacy marketplace built for speed, reliability, and compliance. We partner with
           licensed distributors and verified brands to ensure authentic medicines at transparent prices. This demo is
           front‑end only and Firebase‑ready, so your backend can plug in without redesigning the UI.
         </p>

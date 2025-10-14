@@ -1,6 +1,6 @@
 Privacy Policy
 Effective Date: 10 May 2025
-9 Fold Technologies Pvt Ltd ("Company," "we," "our," or "us") respects your privacy and is committed to protecting your personal and business information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use the Medilo mobile application and website ("Platform"). Please read this policy carefully to understand our practices.
+9 Fold Technologies Pvt Ltd ("Company," "we," "our," or "us") respects your privacy and is committed to protecting your personal and business information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use the Order@VPA mobile application and website ("Platform"). Please read this policy carefully to understand our practices.
 
 1. Information We Collect
 We may collect the following types of information:
@@ -50,4 +50,4 @@ If you have any questions or concerns about this Privacy Policy, please contact 
 • Email:
 • Phone:
 
-By using Medilo, you acknowledge that you have read and understood this Privacy Policy.
+By using Order@VPA, you acknowledge that you have read and understood this Privacy Policy.
