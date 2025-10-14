@@ -62,41 +62,50 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
                   const med = medicines.find((m) => m.id === it.medicineId)
                   return (
                     <div key={it.id} className="flex items-center justify-between p-3">
-                      <div className="min-w-0">
-                        <Dialog>
-                          <DialogTrigger asChild>
-                            <button className="font-medium underline underline-offset-4 hover:opacity-90">
-                              {it.name}
-                            </button>
-                          </DialogTrigger>
-                          <DialogContent>
-                            <DialogHeader>
-                              <DialogTitle>{med?.name ?? it.name}</DialogTitle>
-                              {med?.salt ? <DialogDescription className="mt-1">{med.salt}</DialogDescription> : null}
-                            </DialogHeader>
-                            <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                              <img
-                                src={
-                                  med?.image ||
-                                  "/placeholder.svg?height=160&width=200&query=medicine%20preview" ||
-                                  "/placeholder.svg"
-                                }
-                                alt={med?.name ?? it.name}
-                                className="w-full h-40 object-contain rounded-md bg-muted"
-                              />
-                              <div className="text-sm space-y-2">
-                                {med?.description ? <p className="text-muted-foreground">{med.description}</p> : null}
-                                {med?.pack ? <p>Pack: {med.pack}</p> : null}
-                                <p className="font-medium">Price: Rs {it.price.toFixed(2)} / pc</p>
-                                <p className="text-muted-foreground">Qty: {it.qty}</p>
-                                <p className="font-semibold">Total: Rs {(it.qty * it.price).toFixed(2)}</p>
+                      <div className="min-w-0 flex items-center gap-3">
+                        <img
+                          src={med?.image || "/placeholder.svg?height=48&width=48&query=medicine%20thumbnail"}
+                          alt={med?.name ?? it.name}
+                          className="size-12 rounded-md bg-muted object-contain flex-shrink-0"
+                        />
+                        <div className="min-w-0">
+                          <Dialog>
+                            <DialogTrigger asChild>
+                              <button className="font-medium underline underline-offset-4 hover:opacity-90">
+                                {it.name}
+                              </button>
+                            </DialogTrigger>
+                            <DialogContent>
+                              <DialogHeader>
+                                <DialogTitle>{med?.name ?? it.name}</DialogTitle>
+                                {med?.salt ? <DialogDescription className="mt-1">{med.salt}</DialogDescription> : null}
+                              </DialogHeader>
+                              <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <img
+                                  src={
+                                    med?.image ||
+                                    "/placeholder.svg?height=160&width=200&query=medicine%20preview" ||
+                                    "/placeholder.svg" ||
+                                    "/placeholder.svg"
+                                  }
+                                  alt={med?.name ?? it.name}
+                                  className="w-full h-40 object-contain rounded-md bg-muted"
+                                />
+                                <div className="text-sm space-y-2">
+                                  {med?.description ? <p className="text-muted-foreground">{med.description}</p> : null}
+                                  {med?.pack ? <p>Pack: {med.pack}</p> : null}
+                                  <p className="font-medium">Price: Rs {it.price.toFixed(2)} / pc</p>
+                                  <p className="text-muted-foreground">Qty: {it.qty}</p>
+                                  <p className="font-semibold">Total: Rs {(it.qty * it.price).toFixed(2)}</p>
+                                </div>
                               </div>
-                            </div>
-                          </DialogContent>
-                        </Dialog>
-                        {/* end popup */}
-                        <div className="text-sm text-muted-foreground">Qty: {it.qty}</div>
+                            </DialogContent>
+                          </Dialog>
+                          {/* end popup */}
+                          <div className="text-sm text-muted-foreground">Qty: {it.qty}</div>
+                        </div>
                       </div>
+                      {/* end left side with image + info */}
                       <div className="text-sm font-medium">
                         {"Rs "}
                         {(it.qty * it.price).toFixed(2)}

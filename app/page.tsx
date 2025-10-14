@@ -57,7 +57,7 @@ export default function HomePage() {
         </div>
         <div className="flex items-center justify-center">
           <div className="h-72 w-72 overflow-hidden rounded-full border bg-card">
-            <img src="/images/medicines-home-1.jpg" alt="App preview" className="h-full w-full object-cover" />
+            <img src="/images/order-vpa-logo.jpg" alt="Order@VPA logo" className="h-full w-full object-contain p-8" />
           </div>
         </div>
       </section>

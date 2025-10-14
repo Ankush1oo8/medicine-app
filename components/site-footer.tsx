@@ -7,7 +7,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-6xl px-4 py-10">
         <div className="grid gap-8 md:grid-cols-4">
           <div>
-            <h3 className="text-lg font-semibold">Medilo</h3>
+            <h3 className="text-lg font-semibold">Order@VPA</h3>
             <p className="mt-2 text-sm text-secondary-foreground/80 leading-relaxed">
               Fast, transparent medicine ordering with a clean, mobile‑first experience.
             </p>
@@ -29,6 +29,9 @@ export function SiteFooter() {
                 <Link href="/contact">Contact Us</Link>
               </li>
               <li>
+                <Link href="/expiry">Expiry</Link>
+              </li>
+              <li>
                 <Link href="/terms">Terms &amp; Conditions</Link>
               </li>
               <li>
@@ -45,9 +48,6 @@ export function SiteFooter() {
               </li>
               <li>
                 <Link href="/about">Our Mission</Link>
-              </li>
-              <li>
-                <Link href="/orders">Track Orders</Link>
               </li>
               <li>
                 <Link href="/medicines">Browse Catalogue</Link>
@@ -99,7 +99,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t pt-6 text-xs md:flex-row">
-          <p>© {new Date().getFullYear()} Medilo. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Order@VPA. All rights reserved.</p>
           <div className="flex flex-wrap gap-4">
             <Link href="/terms">Terms</Link>
             <Link href="/privacy">Privacy</Link>

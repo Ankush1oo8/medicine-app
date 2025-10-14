@@ -22,7 +22,7 @@ export function SiteHeader() {
       <div className="mx-auto max-w-6xl px-4">
         <div className="flex h-14 items-center justify-between">
           <Link href="/" className="font-semibold text-lg tracking-tight transition-colors hover:opacity-90">
-            Pharma Store
+            Order@VPA
           </Link>
 
           {/* Desktop links */}
