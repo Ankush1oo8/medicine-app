@@ -64,6 +64,9 @@ export default function ProfilePage() {
 
       <div className="mt-4 flex gap-2">
         {/* Removed View Reference button */}
+        <Button asChild variant="outline" className="rounded-full bg-transparent">
+          <Link href="/deleteaccount">Delete Account</Link>
+        </Button>
         <Button className="rounded-full" onClick={logout}>
           Logout
         </Button>
