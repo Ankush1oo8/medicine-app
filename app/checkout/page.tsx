@@ -11,17 +11,16 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { useCart } from "@/contexts/cart-context"
-import { useOrders } from "@/contexts/order-context"
+import { useCart } from "@/lib/cart"
 import { getCurrentUser } from "@/lib/auth"
+import { createOrder } from "@/lib/orders"
 import { ArrowLeft, CreditCard, Truck } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 
 export default function CheckoutPage() {
   const router = useRouter()
-  const { items, total, clearCart } = useCart()
-  const { createNewOrder, isLoading } = useOrders()
+  const { items, total, clear } = useCart()
   const user = getCurrentUser()
 
   const [shippingInfo, setShippingInfo] = useState({
@@ -58,22 +57,22 @@ export default function CheckoutPage() {
           id: item.id,
           name: item.name,
           price: item.price,
-          quantity: item.quantity,
-          imageUrl: item.imageUrl,
-          dosage: item.dosage,
-          packSize: item.packSize,
+          quantity: item.qty,
+          imageUrl: item.image,
+          dosage: item.pack ?? "",
+          packSize: item.pack ?? "",
         })),
         total,
         deliveryFee,
         grandTotal,
         status: "placed" as const,
-        paymentStatus: paymentMethod === "cod" ? ("pending" as const) : ("pending" as const),
+        paymentStatus: "pending" as const,
         paymentMethod,
         shippingAddress: shippingInfo,
       }
 
-      const order = await createNewOrder(orderData)
-      clearCart()
+      const order = await createOrder(orderData)
+      await clear()
       router.push(`/order-confirmation/${order.id}`)
     } catch (error) {
       console.error("Error placing order:", error)
@@ -199,7 +198,7 @@ export default function CheckoutPage() {
                     <div key={item.id} className="flex items-center space-x-3">
                       <div className="relative w-12 h-12 bg-muted rounded overflow-hidden">
                         <Image
-                          src={item.imageUrl || "/placeholder.svg"}
+                          src={item.image || "/placeholder.svg"}
                           alt={item.name}
                           fill
                           className="object-contain p-1"
@@ -207,9 +206,12 @@ export default function CheckoutPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="font-medium text-sm truncate">{item.name}</p>
-                        <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {item.pack ? `${item.pack} • ` : ""}
+                          Qty: {item.qty}
+                        </p>
                       </div>
-                      <p className="font-medium">Rs {(item.price * item.quantity).toFixed(2)}</p>
+                      <p className="font-medium">Rs {(item.price * item.qty).toFixed(2)}</p>
                     </div>
                   ))}
                 </div>
@@ -229,7 +231,7 @@ export default function CheckoutPage() {
                   </div>
                 </div>
 
-                <Button onClick={handlePlaceOrder} disabled={isProcessing || isLoading} className="w-full" size="lg">
+                <Button onClick={handlePlaceOrder} disabled={isProcessing} className="w-full" size="lg">
                   {isProcessing ? "Placing Order..." : "Place Order"}
                 </Button>
               </CardContent>

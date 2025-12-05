@@ -7,6 +7,7 @@ export type CartItem = {
   price: number // MRP
   qty: number
   image?: string
+  pack?: string
   gst?: string // e.g. "5%"
   ptr?: number // percentage off excluding GST (e.g., 20 for 20%)
   quote?: number // absolute quoted price (ex-GST)
@@ -91,6 +92,7 @@ export function useCart() {
           price: m.price ?? 0,
           qty,
           image: m.image,
+          pack: m.pack ?? m.quantity ?? m.description,
           gst: m.gst ?? "5%",
         })
       const state = { items: next }

@@ -28,6 +28,29 @@ export type AuthUser = {
 const auth = getAuth(firebaseClientApp)
 auth.useDeviceLanguage()
 
+export type CurrentUser = {
+  id: string
+  phone?: string | null
+  name?: string | null
+  email?: string | null
+}
+
+export function getCurrentUser(): CurrentUser | null {
+  if (typeof window === "undefined") return null
+  const current = auth.currentUser
+  if (!current) return null
+  return {
+    id: current.uid || current.phoneNumber || "user",
+    phone: current.phoneNumber,
+    name: current.displayName,
+    email: current.email,
+  }
+}
+
+export function isAuthenticated() {
+  return getCurrentUser() !== null
+}
+
 let recaptchaVerifier: RecaptchaVerifier | null = null
 const DEFAULT_CONTAINER_ID = "recaptcha-container"
 

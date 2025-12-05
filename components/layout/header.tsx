@@ -5,15 +5,16 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Search, ShoppingCart, Menu, X, User } from "lucide-react"
-import { getCurrentUser, isAuthenticated } from "@/lib/auth"
-import { useCart } from "@/contexts/cart-context"
+import { useAuth } from "@/lib/auth"
+import { useCart } from "@/lib/cart"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
-  const user = getCurrentUser()
-  const authenticated = isAuthenticated()
-  const { itemCount } = useCart()
+  const { user } = useAuth()
+  const { items } = useCart()
+  const authenticated = Boolean(user)
+  const itemCount = items.reduce((sum, item) => sum + item.qty, 0)
 
   return (
     <header className="bg-gradient-to-r from-primary to-accent text-primary-foreground shadow-lg">
