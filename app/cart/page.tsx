@@ -74,7 +74,7 @@ export default function CartPage() {
           <Button variant="secondary" onClick={clear} className="rounded-full" disabled={items.length === 0}>
             Clear
           </Button>
-          {user ? (
+          {/* {user ? (
             <Button className="rounded-full" disabled={items.length === 0}>
               Checkout
             </Button>
@@ -82,7 +82,7 @@ export default function CartPage() {
             <Button asChild className="rounded-full" disabled={items.length === 0}>
               <Link href="/login">Login to Checkout</Link>
             </Button>
-          )}
+          )} */}
         </div>
       </div>
     </div>

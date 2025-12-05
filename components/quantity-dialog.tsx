@@ -4,10 +4,10 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
-import type { Medicine } from "@/lib/demo-data"
+import type { ProductData } from "@/lib/firebase/models"
 import { useCart } from "@/lib/cart"
 
-export function QuantityDialog({ medicine }: { medicine: Medicine }) {
+export function QuantityDialog({ medicine }: { medicine: ProductData }) {
   const [open, setOpen] = useState(false)
   const [qty, setQty] = useState(1)
   const { add } = useCart()

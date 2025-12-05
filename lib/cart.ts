@@ -1,5 +1,5 @@
 import useSWR, { mutate } from "swr"
-import type { Medicine } from "./demo-data"
+import type { ProductData } from "@/lib/firebase/models"
 
 export type CartItem = {
   id: string
@@ -80,7 +80,7 @@ export function useCart() {
   return {
     items,
     total,
-    add: async (m: Medicine, qty: number) => {
+    add: async (m: ProductData, qty: number) => {
       const next = [...items]
       const idx = next.findIndex((i) => i.id === m.id)
       if (idx >= 0) next[idx].qty += qty
@@ -88,10 +88,10 @@ export function useCart() {
         next.push({
           id: m.id,
           name: m.name,
-          price: m.price,
+          price: m.price ?? 0,
           qty,
           image: m.image,
-          gst: "5%",
+          gst: m.gst ?? "5%",
         })
       const state = { items: next }
       setLocal(CART_KEY, state)

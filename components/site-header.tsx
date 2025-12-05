@@ -98,7 +98,7 @@ export function SiteHeader() {
               <span className="sr-only">Cart</span>
             </Link>
 
-            {user ? (
+            {/* {user ? (
               <Link
                 href="/profile"
                 aria-label="Profile"
@@ -129,7 +129,7 @@ export function SiteHeader() {
                 <User2 className="h-5 w-5" aria-hidden="true" />
                 <span>Login</span>
               </Link>
-            )}
+            )} */}
           </div>
 
           {/* Mobile collapse button (no icons) */}

@@ -21,6 +21,8 @@ export default function ProfilePage() {
     )
   }
 
+  const displayName = user.name?.trim() || user.phone || "User"
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-6">
       <div className="rounded-2xl bg-secondary p-5 flex items-center gap-3">
@@ -33,8 +35,8 @@ export default function ProfilePage() {
 
       <div className="mt-4 rounded-2xl border bg-card divide-y">
         <div className="p-4">
-          <div className="font-semibold">{user.name.toLowerCase()}</div>
-          <div className="text-sm text-muted-foreground">{user.phone}</div>
+          <div className="font-semibold">{displayName}</div>
+          <div className="text-sm text-muted-foreground">{user.phone || "Phone unavailable"}</div>
         </div>
         <div className="p-4">
           <div className="font-medium">Profile</div>

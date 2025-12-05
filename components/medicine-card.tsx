@@ -2,10 +2,10 @@
 
 import Link from "next/link"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import type { Medicine } from "@/lib/demo-data"
+import type { ProductData } from "@/lib/firebase/models"
 import { QuantityDialog } from "./quantity-dialog"
 
-export function MedicineCard({ m }: { m: Medicine }) {
+export function MedicineCard({ m }: { m: ProductData }) {
   return (
     <Card className="rounded-2xl shadow-sm hover:shadow-md transition">
       <CardHeader className="pt-4 pb-0">

@@ -1,7 +1,6 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { DownloadAppSection } from "@/components/download-app-section"
-import { LoginCta } from "@/components/login-cta"
+import { DownloadAppSection } from "@/components/download-app-section";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
@@ -36,6 +35,14 @@ function StepCard({ n, title, text }: { n: number; title: string; text: string }
 export default function HomePage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
+      <section className="grid items-center gap-8 rounded-2xl bg-secondary p-8 ">
+        <div>
+          <h1 className="text-3xl md:text-3xl font-bold text-secondary-foreground text-balance text-center">
+            LiveSupply, a unit of Vimal Pharma Associate. 
+          </h1>
+        </div>
+      </section>
+      <br/>
       {/* HERO: two-column like reference, keep sky-blue theme */}
       <section className="grid items-center gap-8 rounded-2xl bg-secondary p-8 md:grid-cols-2">
         <div>
@@ -93,12 +100,12 @@ export default function HomePage() {
       <section className="mt-10">
         <h2 className="text-center text-2xl font-semibold">Get Started in Under 10 Minutes</h2>
         <div className="mt-6 grid gap-6 md:grid-cols-3">
-          <StepCard n={1} title="Quick Sign‑In" text="Use the demo login to explore immediately." />
+          <StepCard n={1} title="Quick Sign‑In" text="Verify via mobile OTP and access the dashboard instantly." />
           <StepCard n={2} title="Browse & Verify" text="Open medicine cards for stock and pricing details." />
           <StepCard n={3} title="Order & Grow" text="Add to cart and place orders—track them from Orders." />
         </div>
         {/* Conditionally render LoginCta based on authentication status */}
-        <LoginCta />
+        {/* <LoginCta /> */}
       </section>
 
       {/* Download our app section */}
