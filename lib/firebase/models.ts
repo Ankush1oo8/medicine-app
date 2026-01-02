@@ -133,7 +133,7 @@ export class OrderDetail {
         qty: Number(item.qty ?? item.quantity ?? 0),
         price: Number(item.price ?? item.amount ?? 0),
         name: item.name ?? item.productName ?? "Item",
-        image: item.image,
+        image: normalizeImage([item.image, item.Image_URL]),
         pack: item.pack,
         medicineId: item.prodId ?? item.medicineId,
       })),

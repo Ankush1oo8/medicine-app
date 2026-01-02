@@ -31,7 +31,7 @@ export function OrderDetailClient({ orderId }: { orderId: string }) {
       setLoading(true)
       setError(null)
       try {
-        const snapshot = await getDoc(doc(db, "orders", orderId))
+        const snapshot = await getDoc(doc(db, "orders", orderId,"top"))
         if (!active) return
         if (!snapshot.exists()) {
           setOrder(null)
@@ -86,7 +86,7 @@ export function OrderDetailClient({ orderId }: { orderId: string }) {
         <Card className="mt-4 rounded-2xl">
           <CardHeader className="pb-0">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <h1 className="text-xl font-semibold text-pretty">Order {order.id}</h1>
+              <h1 className="text-xl font-semibold text-pretty">Order Details</h1>
               <Badge
                 className={cn(
                   "rounded-full",

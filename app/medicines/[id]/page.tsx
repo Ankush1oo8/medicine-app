@@ -1,5 +1,6 @@
 import { ProductDetailClient } from "@/components/product-detail-client"
 
-export default function MedicineDetailPage({ params }: { params: { id: string } }) {
-  return <ProductDetailClient productId={decodeURIComponent(params.id)} />
+export default async function MedicineDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  return <ProductDetailClient productId={decodeURIComponent(id)} />
 }

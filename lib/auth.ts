@@ -2,186 +2,159 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import {
-  ConfirmationResult,
-  RecaptchaVerifier,
   getAuth,
   onAuthStateChanged,
-  signInWithPhoneNumber,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
   signOut,
+  updateProfile,
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+  ConfirmationResult,
+  User as FirebaseUser,
 } from "firebase/auth"
-import { DEFAULT_RECAPTCHA_SITE_KEY, firebaseClientApp } from "@/lib/firebase/client"
-
-declare global {
-  interface Window {
-    recaptchaVerifier?: RecaptchaVerifier | null
-    confirmationResult?: ConfirmationResult
-  }
-}
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore"
+import { firebaseClientApp } from "@/lib/firebase/client"
 
 export type AuthUser = {
   uid: string
+  email: string
+  name: string
   phone: string
-  name?: string | null
-  email?: string | null
 }
 
 const auth = getAuth(firebaseClientApp)
-auth.useDeviceLanguage()
-
-export type CurrentUser = {
-  id: string
-  phone?: string | null
-  name?: string | null
-  email?: string | null
-}
-
-export function getCurrentUser(): CurrentUser | null {
-  if (typeof window === "undefined") return null
-  const current = auth.currentUser
-  if (!current) return null
-  return {
-    id: current.uid || current.phoneNumber || "user",
-    phone: current.phoneNumber,
-    name: current.displayName,
-    email: current.email,
-  }
-}
-
-export function isAuthenticated() {
-  return getCurrentUser() !== null
-}
-
-let recaptchaVerifier: RecaptchaVerifier | null = null
-const DEFAULT_CONTAINER_ID = "recaptcha-container"
-
-function initRecaptcha(containerId = DEFAULT_CONTAINER_ID) {
-  if (typeof window === "undefined") return null
-  if (recaptchaVerifier) return recaptchaVerifier
-
-  recaptchaVerifier = new RecaptchaVerifier(auth, containerId, {
-    size: "invisible",
-    callback: () => {
-      // automatically resolved
-    },
-    "expired-callback": () => {
-      recaptchaVerifier = null
-      if (typeof window !== "undefined") {
-        window.recaptchaVerifier = null
-      }
-    },
-  })
-
-  if (typeof window !== "undefined") {
-    window.recaptchaVerifier = recaptchaVerifier
-  }
-
-  recaptchaVerifier.render().catch(() => {
-    recaptchaVerifier = null
-    if (typeof window !== "undefined") window.recaptchaVerifier = null
-  })
-
-  return recaptchaVerifier
-}
-
-const normalizePhone = (input: string) => {
-  if (!input) return null
-  let trimmed = input.replace(/\s+/g, "")
-  if (!trimmed.startsWith("+")) {
-    if (trimmed.length === 10) trimmed = `+91${trimmed}`
-    else return null
-  }
-  return trimmed
-}
+const db = getFirestore(firebaseClientApp)
 
 export function useAuth() {
   const [user, setUser] = useState<AuthUser | null>(null)
-  const [initialized, setInitialized] = useState(false)
-  const confirmationRef = useRef<ConfirmationResult | null>(null)
+  const [loading, setLoading] = useState(true)
+  const confirmationResultRef = useRef<ConfirmationResult | null>(null)
+  const verifierRef = useRef<RecaptchaVerifier | null>(null)
 
   useEffect(() => {
-    if (typeof window === "undefined") return
-    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
+        // Fetch extra profile data (like phone) from Firestore
+        const userDocRef = doc(db, "users", firebaseUser.uid)
+        const userDoc = await getDoc(userDocRef)
+        const userData = userDoc.data()
+
         setUser({
           uid: firebaseUser.uid,
-          phone: firebaseUser.phoneNumber ?? "",
-          name: firebaseUser.displayName,
-          email: firebaseUser.email,
+          email: firebaseUser.email ?? "",
+          name: firebaseUser.displayName ?? userData?.name ?? "",
+          phone: userData?.phone ?? "",
         })
       } else {
         setUser(null)
       }
-      setInitialized(true)
+      setLoading(false)
     })
     return () => unsubscribe()
   }, [])
 
-  const requestOtp = useCallback(async (rawPhone: string, containerId?: string) => {
-    if (typeof window === "undefined") {
-      return { ok: false, error: "OTP flow is only available in the browser." }
-    }
-
-    const phone = normalizePhone(rawPhone)
-    if (!phone) {
-      return { ok: false, error: "Enter a valid phone number with country code." }
-    }
-
-    const verifier = initRecaptcha(containerId)
-    if (!verifier) {
-      return { ok: false, error: "Unable to initialize reCAPTCHA. Reload and try again." }
-    }
-
+  const login = useCallback(async (email: string, pass: string) => {
     try {
-      await verifier.verify()
-      const confirmation = await signInWithPhoneNumber(auth, phone, verifier)
-      confirmationRef.current = confirmation
-      if (typeof window !== "undefined") {
-        window.confirmationResult = confirmation
-      }
+      await signInWithEmailAndPassword(auth, email, pass)
       return { ok: true }
-    } catch (error) {
-      console.error("OTP request failed:", error)
-      recaptchaVerifier = null
-      if (typeof window !== "undefined") {
-        window.recaptchaVerifier = null
-        window.confirmationResult = undefined
-      }
-      return { ok: false, error: error instanceof Error ? error.message : "Failed to send OTP." }
+    } catch (error: any) {
+      console.error("Login failed:", error)
+      return { ok: false, error: error.message }
     }
   }, [])
 
-  const verifyOtp = useCallback(async (code: string) => {
-    if (!confirmationRef.current) {
-      return { ok: false, error: "Request an OTP before verifying." }
-    }
-    if (!code || code.length < 6) {
-      return { ok: false, error: "OTP should be 6 digits." }
-    }
+  const signup = useCallback(async (email: string, pass: string, name: string, phone: string) => {
     try {
-      await confirmationRef.current.confirm(code)
-      confirmationRef.current = null
-      recaptchaVerifier = null
-      if (typeof window !== "undefined") {
-        window.confirmationResult = undefined
-        window.recaptchaVerifier = null
+      const cred = await createUserWithEmailAndPassword(auth, email, pass)
+      if (cred.user) {
+        // Update Auth Profile
+        await updateProfile(cred.user, { displayName: name })
+
+        // Create User Document in Firestore
+        await setDoc(doc(db, "users", cred.user.uid), {
+          name,
+          email,
+          phone,
+          createdAt: new Date().toISOString(),
+          type: "customer", // Default role
+        })
       }
       return { ok: true }
-    } catch (error) {
-      console.error("OTP verification failed:", error)
-      return { ok: false, error: error instanceof Error ? error.message : "Invalid OTP." }
+    } catch (error: any) {
+      console.error("Signup failed:", error)
+      return { ok: false, error: error.message }
+    }
+  }, [])
+
+  // Phone auth: send OTP to the provided phone number.
+  // Requires a DOM element with id="recaptcha-container" (add to your login page).
+  const sendOtp = useCallback(async (phone: string) => {
+    try {
+      if (!verifierRef.current) {
+        verifierRef.current = new RecaptchaVerifier(
+          auth,
+          "recaptcha-container",
+          { size: "invisible" }
+        )
+        // Render the verifier to initialize reCAPTCHA
+        try {
+          await verifierRef.current.render()
+        } catch (renderError) {
+          // Ignore if already rendered
+        }
+      }
+
+      const result = await signInWithPhoneNumber(auth, phone, verifierRef.current)
+      confirmationResultRef.current = result
+      return { ok: true }
+    } catch (error: any) {
+      console.error("sendOtp failed:", error)
+      return { ok: false, error: error.message }
+    }
+  }, [])
+
+  // Confirm OTP code sent by `sendOtp`.
+  const confirmOtp = useCallback(async (code: string) => {
+    try {
+      if (!confirmationResultRef.current) {
+        return { ok: false, error: "No confirmation result available. Call sendOtp first." }
+      }
+
+      const cred = await confirmationResultRef.current.confirm(code)
+      const firebaseUser = cred.user
+
+      // Ensure a Firestore user doc exists for phone users
+      const userDocRef = doc(db, "users", firebaseUser.uid)
+      const userDoc = await getDoc(userDocRef)
+      if (!userDoc.exists()) {
+        await setDoc(userDocRef, {
+          name: firebaseUser.displayName ?? "",
+          email: firebaseUser.email ?? "",
+          phone: firebaseUser.phoneNumber ?? "",
+          createdAt: new Date().toISOString(),
+          type: "customer",
+        })
+      }
+
+      return { ok: true }
+    } catch (error: any) {
+      console.error("confirmOtp failed:", error)
+      return { ok: false, error: error.message }
     }
   }, [])
 
   const logout = useCallback(async () => {
-    confirmationRef.current = null
     await signOut(auth)
   }, [])
 
   return {
     user,
-    loading: !initialized,
-    requestOtp,
-    verifyOtp,
+    loading,
+    login,
+    signup,
     logout,
+    sendOtp,
+    confirmOtp,
   }
 }

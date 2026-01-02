@@ -6,6 +6,7 @@ import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { useCart } from "@/lib/cart"
 import { useAuth } from "@/lib/auth"
+import { useProfile } from "@/hooks/use-profile"
 import { ShoppingCart, User2 } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
@@ -13,6 +14,7 @@ export function SiteHeader() {
   const pathname = usePathname()
   const { items } = useCart()
   const { user } = useAuth()
+  const { profile } = useProfile(user?.phone || null)
   const [open, setOpen] = useState(false)
 
   const isActive = (href: string) => pathname === href || (href !== "/" && pathname?.startsWith(href))
@@ -26,11 +28,11 @@ export function SiteHeader() {
           </Link>
 
           {/* Desktop links */}
-          <nav className="hidden md:flex items-center gap-6 text-sm">
+          <nav className="hidden md:flex items-center gap-2 text-sm font-medium">
             <Link
               className={cn(
-                "transition-colors underline-offset-8 hover:underline",
-                isActive("/") && "text-primary font-medium",
+                "relative px-4 py-2 rounded-xl transition-all duration-300 hover:bg-primary/10 hover:text-primary hover:shadow-sm",
+                isActive("/") && "text-primary bg-primary/10 shadow-md ring-1 ring-primary/20",
               )}
               href="/"
             >
@@ -38,8 +40,8 @@ export function SiteHeader() {
             </Link>
             <Link
               className={cn(
-                "transition-colors underline-offset-8 hover:underline",
-                isActive("/medicines") && "text-primary font-medium",
+                "relative px-4 py-2 rounded-xl transition-all duration-300 hover:bg-primary/10 hover:text-primary hover:shadow-sm",
+                isActive("/medicines") && "text-primary bg-primary/10 shadow-md ring-1 ring-primary/20",
               )}
               href="/medicines"
             >
@@ -47,8 +49,8 @@ export function SiteHeader() {
             </Link>
             <Link
               className={cn(
-                "transition-colors underline-offset-8 hover:underline",
-                isActive("/about") && "text-primary font-medium",
+                "relative px-4 py-2 rounded-xl transition-all duration-300 hover:bg-primary/10 hover:text-primary hover:shadow-sm",
+                isActive("/about") && "text-primary bg-primary/10 shadow-md ring-1 ring-primary/20",
               )}
               href="/about"
             >
@@ -56,25 +58,23 @@ export function SiteHeader() {
             </Link>
             <Link
               className={cn(
-                "transition-colors underline-offset-8 hover:underline",
-                isActive("/contact") && "text-primary font-medium",
+                "relative px-4 py-2 rounded-xl transition-all duration-300 hover:bg-primary/10 hover:text-primary hover:shadow-sm",
+                isActive("/contact") && "text-primary bg-primary/10 shadow-md ring-1 ring-primary/20",
               )}
               href="/contact"
             >
               Contact
             </Link>
             {user && (
-              <>
-                <Link
-                  className={cn(
-                    "transition-colors underline-offset-8 hover:underline",
-                    isActive("/orders") && "text-primary font-medium",
-                  )}
-                  href="/orders"
-                >
-                  Orders
-                </Link>
-              </>
+              <Link
+                className={cn(
+                  "relative px-4 py-2 rounded-xl transition-all duration-300 hover:bg-primary/10 hover:text-primary hover:shadow-sm",
+                  isActive("/orders") && "text-primary bg-primary/10 shadow-md ring-1 ring-primary/20",
+                )}
+                href="/orders"
+              >
+                Orders
+              </Link>
             )}
           </nav>
 
@@ -98,7 +98,7 @@ export function SiteHeader() {
               <span className="sr-only">Cart</span>
             </Link>
 
-            {/* {user ? (
+            {user ? (
               <Link
                 href="/profile"
                 aria-label="Profile"
@@ -109,7 +109,7 @@ export function SiteHeader() {
                 title="Profile"
               >
                 <Avatar className="h-9 w-9">
-                  <AvatarImage src="/generic-user-avatar.jpg" alt="Profile" />
+                  <AvatarImage src={profile?.profilePhotoUrl || "/generic-user-avatar.jpg"} alt="Profile" />
                   <AvatarFallback>
                     <User2 className="h-4 w-4" />
                   </AvatarFallback>
@@ -129,7 +129,7 @@ export function SiteHeader() {
                 <User2 className="h-5 w-5" aria-hidden="true" />
                 <span>Login</span>
               </Link>
-            )} */}
+            )}
           </div>
 
           {/* Mobile collapse button (no icons) */}
@@ -240,7 +240,7 @@ export function SiteHeader() {
                   title="Profile"
                 >
                   <Avatar className="h-7 w-7">
-                    <AvatarImage src="/generic-user-avatar.jpg" alt="Profile" />
+                    <AvatarImage src={profile?.profilePhotoUrl || "/generic-user-avatar.jpg"} alt="Profile" />
                     <AvatarFallback className="text-[10px]">PR</AvatarFallback>
                   </Avatar>
                 </Link>

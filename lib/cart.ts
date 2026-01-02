@@ -7,11 +7,15 @@ export type CartItem = {
   price: number // MRP
   qty: number
   image?: string
-  pack?: string
   gst?: string // e.g. "5%"
-  ptr?: number // percentage off excluding GST (e.g., 20 for 20%)
+  ptr?: number // percentage off excluding GST
   quote?: number // absolute quoted price (ex-GST)
   discountPercent?: number // extra discount % after PTR
+  manufacturer?: string
+  salt_composition?: string
+  pack?: string
+  gst_rate?: string
+  prodId?: string
 }
 
 export type CartState = {
@@ -35,7 +39,7 @@ const setLocal = (k: string, v: unknown) => {
   window.localStorage.setItem(k, JSON.stringify(v))
 }
 
-function calcItemTotals(mrp: number, gstStr = "5%", ptr?: number, quote?: number, discountPercent?: number) {
+export function calcItemTotals(mrp: number, gstStr = "5%", ptr?: number, quote?: number, discountPercent?: number) {
   const round2 = (val: number) => Number(val.toFixed(2))
   const gstPercent = Number(gstStr.replace("%", "")) || 0
   const exceptGst = (mrp * 100) / (100 + gstPercent)
@@ -92,8 +96,12 @@ export function useCart() {
           price: m.price ?? 0,
           qty,
           image: m.image,
-          pack: m.pack ?? m.quantity ?? m.description,
           gst: m.gst ?? "5%",
+          manufacturer: m.manufacturer,
+          salt_composition: m.saltComposition ?? m.salt,
+          pack: m.pack ?? m.quantity,
+          gst_rate: m.gstRate ?? m.gst ?? "5%",
+          prodId: m.id,
         })
       const state = { items: next }
       setLocal(CART_KEY, state)

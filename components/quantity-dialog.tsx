@@ -6,17 +6,22 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogT
 import { Input } from "@/components/ui/input"
 import type { ProductData } from "@/lib/firebase/models"
 import { useCart } from "@/lib/cart"
+import { useToast } from "@/hooks/use-toast"
 
 export function QuantityDialog({ medicine }: { medicine: ProductData }) {
   const [open, setOpen] = useState(false)
   const [qty, setQty] = useState(1)
   const { add } = useCart()
+  const { toast } = useToast()
+
+  const stockNum = Number(medicine.stockCount ?? medicine.stock ?? 0)
+  const isOutOfStock = stockNum <= 0
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm" className="rounded-full">
-          Add
+        <Button size="sm" className="rounded-full" disabled={isOutOfStock}>
+          {isOutOfStock ? "Out of Stock" : "Add"}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
@@ -42,18 +47,28 @@ export function QuantityDialog({ medicine }: { medicine: ProductData }) {
             id="qty"
             type="number"
             min={1}
+            max={stockNum > 0 ? stockNum : undefined}
             value={qty}
-            onChange={(e) => setQty(Math.max(1, Number(e.target.value)))}
+            onChange={(e) => {
+              const val = Number(e.target.value)
+              setQty(val)
+            }}
             className="w-28"
           />
         </div>
         <DialogFooter>
           <Button
             onClick={async () => {
+              if (qty < 1) return
               await add(medicine, qty)
               setOpen(false)
+              toast({
+                title: "Added to cart",
+                description: `${qty} x ${medicine.name} added to your cart.`,
+              })
             }}
             className="rounded-full"
+            disabled={qty < 1 || (stockNum > 0 && qty > stockNum)}
           >
             Add {qty} • Rs {(qty * medicine.price).toFixed(2)}
           </Button>

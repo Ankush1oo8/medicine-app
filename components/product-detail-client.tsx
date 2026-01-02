@@ -23,7 +23,7 @@ export function ProductDetailClient({ productId }: { productId: string }) {
     const fetchProduct = async () => {
       setLoading(true)
       try {
-        const docRef = doc(db, "product", productId)
+        const docRef = doc(db, "management", productId)
         const snapshot = await getDoc(docRef)
         if (!snapshot.exists()) {
           if (active) setProduct(null)
@@ -86,6 +86,7 @@ export function ProductDetailClient({ productId }: { productId: string }) {
               <div className="space-y-3">
                 <h1 className="text-2xl font-bold text-pretty">{product.name}</h1>
                 {product.salt && <p className="text-muted-foreground">{product.salt}</p>}
+                {product.description && <p className="text-sm text-muted-foreground">{product.description}</p>}
                 <div className="flex flex-wrap items-center gap-2">
                   <Badge variant="secondary" className="rounded-full">
                     GST {product.gst ?? "5%"}
@@ -95,6 +96,40 @@ export function ProductDetailClient({ productId }: { productId: string }) {
                       ? `In Stock: ${product.stock ?? product.stockCount}`
                       : "Out of stock"}
                   </Badge>
+                  {product.manufacturer && (
+                    <Badge variant="outline" className="rounded-full">
+                      {product.manufacturer}
+                    </Badge>
+                  )}
+                  {product.expiry && (
+                    <Badge variant="outline" className="rounded-full">
+                      Expires: {product.expiry}
+                    </Badge>
+                  )}
+                  {product.scheme && (
+                    <Badge variant="secondary" className="rounded-full">
+                      Scheme Available
+                    </Badge>
+                  )}
+                </div>
+                {product.pack && (
+                  <div className="text-sm text-muted-foreground">
+                    <strong>Pack:</strong> {product.pack}
+                  </div>
+                )}
+
+                {/* Raw Data Display */}
+                <div className="mt-6 rounded-xl border bg-muted/50 p-4">
+                  <h3 className="font-semibold mb-3">Product Details</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                    <div><strong>Name:</strong> {product.name}</div>
+                    <div><strong>MRP:</strong> {product.mrpLabel || product.price}</div>
+                    <div><strong>GST_Rate:</strong> {product.gst || "5%"}</div>
+                    <div><strong>Manufacturer:</strong> {product.manufacturer || "N/A"}</div>                              
+                    <div><strong>Discount:</strong> {product.discount || "0"}%</div>
+                    <div><strong>Expiry:</strong> {product.expiry || "N/A"}</div>               
+                    <div><strong>PTR:</strong> {product.ptr || "N/A"}</div>                                
+                  </div>
                 </div>
 
                 <div className="mt-4 rounded-xl border">
