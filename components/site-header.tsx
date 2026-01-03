@@ -6,7 +6,6 @@ import { useState } from "react"
 import { cn } from "@/lib/utils"
 import { useCart } from "@/lib/cart"
 import { useAuth } from "@/lib/auth"
-import { useProfile } from "@/hooks/use-profile"
 import { ShoppingCart, User2 } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
@@ -14,7 +13,6 @@ export function SiteHeader() {
   const pathname = usePathname()
   const { items } = useCart()
   const { user } = useAuth()
-  const { profile } = useProfile(user?.phone || null)
   const [open, setOpen] = useState(false)
 
   const isActive = (href: string) => pathname === href || (href !== "/" && pathname?.startsWith(href))
@@ -109,7 +107,7 @@ export function SiteHeader() {
                 title="Profile"
               >
                 <Avatar className="h-9 w-9">
-                  <AvatarImage src={profile?.profilePhotoUrl || "/generic-user-avatar.jpg"} alt="Profile" />
+                  <AvatarImage src="/generic-user-avatar.jpg" alt="Profile" />
                   <AvatarFallback>
                     <User2 className="h-4 w-4" />
                   </AvatarFallback>
@@ -240,7 +238,7 @@ export function SiteHeader() {
                   title="Profile"
                 >
                   <Avatar className="h-7 w-7">
-                    <AvatarImage src={profile?.profilePhotoUrl || "/generic-user-avatar.jpg"} alt="Profile" />
+                    <AvatarImage src="/generic-user-avatar.jpg" alt="Profile" />
                     <AvatarFallback className="text-[10px]">PR</AvatarFallback>
                   </Avatar>
                 </Link>
