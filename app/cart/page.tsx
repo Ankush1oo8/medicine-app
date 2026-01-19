@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useCart, calcItemTotals } from "@/lib/cart"
 import { useAuth } from "@/lib/auth"
+import { useProfile } from "@/hooks/use-profile"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { ShoppingCart, Loader2, User } from "lucide-react"
@@ -21,6 +22,7 @@ export default function CartPage() {
   const { toast } = useToast()
   const { items, total, update, remove, clear } = useCart()
   const { user } = useAuth()
+  const { profile } = useProfile(user?.phone || null)
   const [checkingOut, setCheckingOut] = useState(false)
 
   const handleCheckout = async () => {
@@ -110,20 +112,20 @@ export default function CartPage() {
             <p className="text-muted-foreground mt-1">Review and manage your selected medicines</p>
           </div>
         </div>
-        {user ? (
+        {user && (
           <div className="flex items-center gap-3">
-            <div className="text-right">
-              <div className="text-sm font-medium">{user.name || 'User'}</div>
-              <div className="text-xs text-muted-foreground">{user.phone}</div>
-            </div>
             <Avatar className="h-10 w-10 ring-2 ring-primary/20">
-              <AvatarImage src="/generic-user-avatar.jpg" alt="Profile" />
+              <AvatarImage src={profile?.profilePhotoUrl || "/generic-user-avatar.jpg"} alt="Profile" />
               <AvatarFallback className="bg-primary/10 text-primary font-semibold">
-                {user.name?.charAt(0)?.toUpperCase() || 'U'}
+                {user.name?.charAt(0).toUpperCase() || user.phone?.charAt(0) || "U"}
               </AvatarFallback>
             </Avatar>
+            <div className="text-right">
+              <p className="text-sm font-medium">{user.name || "User"}</p>
+              <p className="text-xs text-muted-foreground">{user.phone}</p>
+            </div>
           </div>
-        ) : null}
+        )}
       </div>
 
       <div className="rounded-3xl border bg-gradient-to-br from-card to-muted/20 shadow-lg overflow-hidden animate-fade-in">

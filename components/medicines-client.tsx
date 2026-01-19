@@ -42,25 +42,20 @@ export function MedicinesClient() {
     }
   }, [])
 
-const list = useMemo(() => {
-  const t = q.trim().toLowerCase()
-
-  return products
-    .filter((p) => Number(p.stock) > 0) // 🔒 FINAL GUARANTEE
-    .filter((m) => {
-      if (!t) return true
-
-      return (
+  const list = useMemo(() => {
+    const t = q.trim().toLowerCase()
+    if (!t) return products
+    return products.filter(
+      (m) =>
         m.name.toLowerCase().includes(t) ||
         (m.salt && m.salt.toLowerCase().includes(t)) ||
-        (m.description && m.description.toLowerCase().includes(t))
-      )
-    })
-}, [products, q])
+        (m.description && m.description.toLowerCase().includes(t)),
+    )
+  }, [products, q])
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-4">
-      <div className="bg-background border rounded-2xl p-4 mb-6">
+      <div className="bg-secondary rounded-2xl p-4">
         <div className="relative">
           <InputGroup className="rounded-full">
             <InputGroupAddon aria-hidden>

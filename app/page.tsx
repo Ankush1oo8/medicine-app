@@ -36,14 +36,6 @@ function StepCard({ n, title, text }: { n: number; title: string; text: string }
 export default function HomePage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-8">
-      <section className="grid items-center gap-8 rounded-2xl bg-secondary p-8 ">
-        <div>
-          <h1 className="text-3xl md:text-3xl font-bold text-secondary-foreground text-balance text-center">
-            LiveSupply, a unit of Vimal Pharma Associate. 
-          </h1>
-        </div>
-      </section>
-      <br/>
       {/* HERO: two-column like reference, keep sky-blue theme */}
       <section className="relative overflow-hidden grid items-center gap-8 rounded-3xl bg-gradient-to-br from-secondary via-secondary to-primary/10 p-8 md:p-12 md:grid-cols-2 animate-slide-up">
         <div className="relative z-10">
@@ -77,7 +69,7 @@ export default function HomePage() {
       {/* BENEFITS: "Order Anywhere, Anytime" style */}
       <section className="mt-16 rounded-3xl border bg-gradient-to-br from-card to-muted/30 p-8 md:p-12 shadow-lg animate-fade-in">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gradient mb-4">Order Anywhere, Anytime</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">Order Anywhere, Anytime</h2>
           <p className="text-muted-foreground leading-relaxed text-lg max-w-2xl mx-auto">
             Access special deals, repeat orders, and instant confirmations directly from your phone or desktop.
           </p>

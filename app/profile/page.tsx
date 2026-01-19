@@ -97,17 +97,6 @@ export default function ProfilePage() {
                   <p className="font-semibold text-lg">{profile?.email || user.email || 'Not set'}</p>
                 </div>
               </div>
-              {profile?.businessName && (
-                <div className="group flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-muted/20 to-muted/10 hover:from-primary/5 hover:to-primary/10 transition-all duration-300 border border-transparent hover:border-primary/20">
-                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                    <Building className="h-5 w-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground font-medium">Business Name</p>
-                    <p className="font-semibold text-lg">{profile.businessName}</p>
-                  </div>
-                </div>
-              )}
               {profile?.year && (
                 <div className="group flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-muted/20 to-muted/10 hover:from-primary/5 hover:to-primary/10 transition-all duration-300 border border-transparent hover:border-primary/20">
                   <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
@@ -167,19 +156,8 @@ export default function ProfilePage() {
                   </div>
                 </div>
               )}
-              {profile?.updatedAt && (
-                <div className="group flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-muted/20 to-muted/10 hover:from-primary/5 hover:to-primary/10 transition-all duration-300 border border-transparent hover:border-primary/20">
-                  <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                    <Clock className="h-5 w-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-sm text-muted-foreground font-medium">Last Updated</p>
-                    <p className="font-semibold text-lg">{new Date(profile.updatedAt).toLocaleDateString()}</p>
-                  </div>
-                </div>
-              )}
-              {profile?.uploadOn !== undefined && (
-                <div className="group flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-muted/20 to-muted/10 hover:from-primary/5 hover:to-primary/10 transition-all duration-300 border border-transparent hover:border-primary/20">
+              {/* {profile?.uploadOn !== undefined && ( */}
+                {/* <div className="group flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-muted/20 to-muted/10 hover:from-primary/5 hover:to-primary/10 transition-all duration-300 border border-transparent hover:border-primary/20">
                   <div className={`inline-flex h-10 w-10 items-center justify-center rounded-full ${profile.uploadOn ? 'bg-green-500/10' : 'bg-muted/50'}`}>
                     <Upload className={`h-5 w-5 ${profile.uploadOn ? 'text-green-600' : 'text-muted-foreground'}`} />
                   </div>
@@ -189,10 +167,10 @@ export default function ProfilePage() {
                       {profile.uploadOn ? 'Enabled' : 'Disabled'}
                     </p>
                   </div>
-                </div>
-              )}
-              {profile?.showStock !== undefined && (
-                <div className="group flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-muted/20 to-muted/10 hover:from-primary/5 hover:to-primary/10 transition-all duration-300 border border-transparent hover:border-primary/20">
+                </div> */}
+              {/* )} */}
+              {/* {profile?.showStock !== undefined && ( */}
+                {/* <div className="group flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-muted/20 to-muted/10 hover:from-primary/5 hover:to-primary/10 transition-all duration-300 border border-transparent hover:border-primary/20">
                   <div className={`inline-flex h-10 w-10 items-center justify-center rounded-full ${profile.showStock ? 'bg-blue-500/10' : 'bg-muted/50'}`}>
                     {profile.showStock ? <Eye className="h-5 w-5 text-blue-600" /> : <EyeOff className="h-5 w-5 text-muted-foreground" />}
                   </div>
@@ -202,10 +180,10 @@ export default function ProfilePage() {
                       {profile.showStock ? 'Visible' : 'Hidden'}
                     </p>
                   </div>
-                </div>
-              )}
-              {profile?.requestLedger !== undefined && (
-                <div className="group flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-muted/20 to-muted/10 hover:from-primary/5 hover:to-primary/10 transition-all duration-300 border border-transparent hover:border-primary/20">
+                </div> */}
+              {/* )} */}
+              {/* {profile?.requestLedger !== undefined && ( */}
+                {/* <div className="group flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-muted/20 to-muted/10 hover:from-primary/5 hover:to-primary/10 transition-all duration-300 border border-transparent hover:border-primary/20">
                   <div className={`inline-flex h-10 w-10 items-center justify-center rounded-full ${profile.requestLedger ? 'bg-purple-500/10' : 'bg-muted/50'}`}>
                     <FileText className={`h-5 w-5 ${profile.requestLedger ? 'text-purple-600' : 'text-muted-foreground'}`} />
                   </div>
@@ -215,8 +193,8 @@ export default function ProfilePage() {
                       {profile.requestLedger ? 'Requested' : 'Not Requested'}
                     </p>
                   </div>
-                </div>
-              )}
+                </div> */}
+              {/* )} */}
             </div>
           </div>
         </div>
@@ -258,72 +236,32 @@ export default function ProfilePage() {
                 </div>
                 <div className="flex-1">
                   <p className="text-sm text-muted-foreground font-medium">License Documents</p>
-                  <div className="mt-2 space-y-1">
+                  <div className="mt-2 grid grid-cols-1 gap-3">
                     {profile?.licenseUrl && typeof profile.licenseUrl === 'object' && Object.keys(profile.licenseUrl).length > 0 ? (
                       Object.entries(profile.licenseUrl).map(([key, value]) => (
-                        <p key={key} className="text-sm font-medium">
-                          {key}: <span className={value ? 'text-green-600' : 'text-red-600'}>{value ? 'Uploaded' : 'Not Uploaded'}</span>
-                        </p>
+                        <div key={key} className="p-3 bg-white/50 rounded-lg border">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium">{key}</span>
+                            {value ? (
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="text-xs"
+                                onClick={() => window.open(value as string, '_blank')}
+                              >
+                                View Document
+                              </Button>
+                            ) : (
+                              <span className="text-xs text-red-600">Not Uploaded</span>
+                            )}
+                          </div>
+                        </div>
                       ))
                     ) : (
                       <p className="text-sm font-medium text-muted-foreground">No licenses uploaded</p>
                     )}
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Quick Actions Grid */}
-        <div className="grid gap-4 md:grid-cols-3">
-          <div className="group rounded-3xl border bg-gradient-to-br from-card to-muted/20 p-6 shadow-lg hover:shadow-xl transition-all duration-300 card-hover cursor-pointer">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                <FileText className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <h3 className="font-semibold">Ledger</h3>
-                <p className="text-sm text-muted-foreground">Balance Sheet</p>
-                {profile?.requestLedger && (
-                  <p className="text-xs text-green-600 font-medium mt-1">Ledger Requested</p>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="group rounded-3xl border bg-gradient-to-br from-card to-muted/20 p-6 shadow-lg hover:shadow-xl transition-all duration-300 card-hover cursor-pointer">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-accent/10 group-hover:bg-accent/20 transition-colors">
-                <Trophy className="h-6 w-6 text-accent" />
-              </div>
-              <div>
-                <h3 className="font-semibold">Milestones</h3>
-                <p className="text-sm text-muted-foreground">Rewards & Achievements</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="group rounded-3xl border bg-gradient-to-br from-card to-muted/20 p-6 shadow-lg hover:shadow-xl transition-all duration-300 card-hover cursor-pointer">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-green-500/10 group-hover:bg-green-500/20 transition-colors">
-                <Upload className="h-6 w-6 text-green-600" />
-              </div>
-              <div>
-                <h3 className="font-semibold">License</h3>
-                <p className="text-sm text-muted-foreground">Upload & Manage</p>
-                {profile?.licenseUrl && typeof profile.licenseUrl === 'object' && Object.keys(profile.licenseUrl).length > 0 && (
-                  <div className="mt-2 space-y-1">
-                    {Object.entries(profile.licenseUrl).slice(0, 2).map(([key, value]) => (
-                      <p key={key} className="text-xs text-green-600 font-medium">
-                        {key}: {value ? 'Uploaded' : 'Not Uploaded'}
-                      </p>
-                    ))}
-                    {Object.keys(profile.licenseUrl).length > 2 && (
-                      <p className="text-xs text-muted-foreground">+{Object.keys(profile.licenseUrl).length - 2} more</p>
-                    )}
-                  </div>
-                )}
               </div>
             </div>
           </div>

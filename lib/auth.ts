@@ -30,6 +30,7 @@ export function useAuth() {
   const [user, setUser] = useState<AuthUser | null>(null)
   const [loading, setLoading] = useState(true)
   const confirmationResultRef = useRef<ConfirmationResult | null>(null)
+  const verifierRef = useRef<RecaptchaVerifier | null>(null)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -90,21 +91,21 @@ export function useAuth() {
   // Requires a DOM element with id="recaptcha-container" (add to your login page).
   const sendOtp = useCallback(async (phone: string) => {
     try {
-      const verifier = new RecaptchaVerifier(
-                auth,
-        "recaptcha-container",
-        { size: "invisible" },
-      )
-
-      try {
-        // Ensure rendered (returns a promise)
-        // eslint-disable-next-line @typescript-eslint/no-floating-promises
-        verifier.render()
-      } catch (e) {
-        // ignore if already rendered
+      if (!verifierRef.current) {
+        verifierRef.current = new RecaptchaVerifier(
+          auth,
+          "recaptcha-container",
+          { size: "invisible" }
+        )
+        // Render the verifier to initialize reCAPTCHA
+        try {
+          await verifierRef.current.render()
+        } catch (renderError) {
+          // Ignore if already rendered
+        }
       }
 
-      const result = await signInWithPhoneNumber(auth, phone, verifier)
+      const result = await signInWithPhoneNumber(auth, phone, verifierRef.current)
       confirmationResultRef.current = result
       return { ok: true }
     } catch (error: any) {
@@ -153,5 +154,7 @@ export function useAuth() {
     login,
     signup,
     logout,
+    sendOtp,
+    confirmOtp,
   }
 }

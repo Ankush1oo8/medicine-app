@@ -16,8 +16,8 @@ export async function GET(
       return NextResponse.json({ error: 'Phone number is required' }, { status: 400 })
     }
 
-    // Query users collection where phone field matches
-    const clientsQuery = query(collection(db, 'users'), where('phone', '==', phone))
+    // Query clients collection where phone field matches
+    const clientsQuery = query(collection(db, 'clients'), where('phone', '==', phone))
     const querySnapshot = await getDocs(clientsQuery)
 
     if (querySnapshot.empty) {
