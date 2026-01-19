@@ -91,9 +91,9 @@ export function useAuth() {
   const sendOtp = useCallback(async (phone: string) => {
     try {
       const verifier = new RecaptchaVerifier(
+                auth,
         "recaptcha-container",
         { size: "invisible" },
-        auth
       )
 
       try {
