@@ -8,6 +8,7 @@ import {
   where,
 } from 'firebase/firestore'
 import { firebaseClientApp } from '@/lib/firebase/client'
+
 import { Product } from '@/lib/firebase/models'
 
 const db = getFirestore(firebaseClientApp)
