@@ -43,7 +43,7 @@ export default function HomePage() {
             India’s trusted B2B pharmacy ordering platform
           </h1>
           <p className="mt-6 max-w-xl text-secondary-foreground/90 leading-relaxed text-lg">
-            Order genuine medicines with transparent pricing and quick delivery—built for licensed pharmacies and
+            Order genuine medicines with transparent pricing and quick delivery built for licensed pharmacies and
             distributors.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
@@ -57,8 +57,8 @@ export default function HomePage() {
         </div>
         <div className="flex items-center justify-center relative">
           <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full blur-3xl"></div>
-          <div className="relative h-80 w-80 overflow-hidden rounded-full border-4 border-white/20 bg-card shadow-2xl animate-scale-in">
-            <img src="/images/order-vpa-logo.jpg" alt="Order@VPA logo" className="h-full w-full object-contain p-8" />
+          <div className="relative h-48 w-48 sm:h-64 sm:w-64 md:h-80 md:w-80 lg:h-96 lg:w-96 overflow-hidden rounded-full border-4 border-white/20 bg-card shadow-2xl animate-scale-in">
+            <img src="/images/order-vpa-logo.jpg" alt="Order@VPA logo" className="h-full w-full object-contain p-4 sm:p-6 md:p-8" />
           </div>
         </div>
         {/* Decorative elements */}

@@ -52,9 +52,12 @@ export function ProductDetailClient({ productId }: { productId: string }) {
   }
 
   const mrp = product?.price ?? 0
-  const ptr = mrp * 0.86
-  const discount = mrp * 0.1
-  const final = mrp * 0.9
+  const discountPercent = product?.discount ? parseFloat(String(product.discount).replace('%', '')) / 100 : 0.1
+  const gstPercent = product?.gst ? parseFloat(String(product.gst).replace('%', '')) / 100 : 0.05
+  const ptr = product?.ptr ? parseFloat(product.ptr) : mrp * (1 - discountPercent)
+  const discount = ptr * discountPercent
+  const discountedPrice = ptr - discount
+  const final = discountedPrice * (1 + gstPercent)
 
   return (
     <main className="mx-auto max-w-4xl px-4 py-6">
@@ -138,7 +141,7 @@ export function ProductDetailClient({ productId }: { productId: string }) {
                     <span className="text-right line-through text-muted-foreground">Rs {mrp.toFixed(2)}</span>
                     <span className="text-muted-foreground">PTR Price</span>
                     <span className="text-right">Rs {ptr.toFixed(2)}</span>
-                    <span className="text-green-600">Discount (10%)</span>
+                    <span className="text-green-600">Discount ({(discountPercent * 100).toFixed(0)}%)</span>
                     <span className="text-right text-green-600">- Rs {discount.toFixed(2)}</span>
                     <span className="font-medium">Price</span>
                     <span className="text-right font-medium">Rs {final.toFixed(2)}</span>

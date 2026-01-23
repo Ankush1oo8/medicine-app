@@ -42,7 +42,7 @@ export class Product {
           : undefined
     return new Product({
       id,
-      name: data.Name ?? data.name ?? "",
+      name: capitalizeFirstLetter(data.Name ?? data.name ?? ""),
       price: mrp,
       mrpLabel: String(mrpSource ?? ""),
       salt: data.salt ?? data.Salt ?? data.Salt_Composition ?? data.saltComposition,
@@ -382,3 +382,8 @@ const toPublicImageUrl = (value: string): string | undefined => {
 
 const buildStorageUrl = (bucket: string, objectPath: string) =>
   `https://firebasestorage.googleapis.com/v0/b/${bucket}/o/${encodeURIComponent(objectPath)}?alt=media`
+
+const capitalizeFirstLetter = (str: string): string => {
+  if (!str) return str
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}

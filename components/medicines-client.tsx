@@ -44,13 +44,16 @@ export function MedicinesClient() {
 
   const list = useMemo(() => {
     const t = q.trim().toLowerCase()
-    if (!t) return products
-    return products.filter(
-      (m) =>
-        m.name.toLowerCase().includes(t) ||
-        (m.salt && m.salt.toLowerCase().includes(t)) ||
-        (m.description && m.description.toLowerCase().includes(t)),
-    )
+    let filtered = products
+    if (t) {
+      filtered = products.filter(
+        (m) =>
+          m.name.toLowerCase().includes(t) ||
+          (m.salt && m.salt.toLowerCase().includes(t)) ||
+          (m.description && m.description.toLowerCase().includes(t)),
+      )
+    }
+    return filtered.sort((a, b) => a.name.localeCompare(b.name))
   }, [products, q])
 
   return (

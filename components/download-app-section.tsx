@@ -22,7 +22,7 @@ export function DownloadAppSection({ className }: { className?: string }) {
       </div>
       <div className="flex items-center gap-3">
         <a
-          href="#"
+          href="https://apps.apple.com/in/app/order-vpa/id6755127591"
           className="inline-flex items-center gap-2 rounded-md border border-border bg-card px-4 py-2 text-sm font-medium text-card-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
           aria-label="Download on the App Store"
         >
@@ -31,7 +31,7 @@ export function DownloadAppSection({ className }: { className?: string }) {
           <span>App Store</span>
         </a>
         <a
-          href="#"
+          href="https://play.google.com/store/apps/details?id=com.pharmacompany.ordervpa&pcampaignid=web_share"
           className="inline-flex items-center gap-2 rounded-md border border-border bg-card px-4 py-2 text-sm font-medium text-card-foreground hover:bg-accent hover:text-accent-foreground transition-colors"
           aria-label="Get it on Google Play"
         >

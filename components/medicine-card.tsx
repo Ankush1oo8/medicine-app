@@ -32,7 +32,7 @@ export function MedicineCard({ m }: { m: ProductData }) {
               className="h-36 w-full object-contain transition-transform duration-500 group-hover:scale-110 drop-shadow-sm"
             />
             {/* Enhanced shine effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
+            <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
           </div>
           <div className="mt-5 space-y-3">
             <div className="font-bold text-xl line-clamp-1 group-hover:text-primary transition-colors duration-300">
@@ -56,7 +56,12 @@ export function MedicineCard({ m }: { m: ProductData }) {
         <div className="mt-5 flex items-center justify-between">
           <div className="flex flex-col gap-1">
             <div className="text-primary font-bold text-xl">
-              Rs {(m.price * 0.9).toFixed(1)}/pc
+              Rs {(() => {
+                const discountPercent = m.discount ? parseFloat(String(m.discount).replace('%', '')) / 100 : 0.1
+                const gstPercent = m.gst ? parseFloat(String(m.gst).replace('%', '')) / 100 : 0.05
+                const discountedPrice = m.price * (1 - discountPercent)
+                return (discountedPrice * (1 + gstPercent)).toFixed(1)
+              })()}/pc
             </div>
             {m.discount && (
               <div className="text-xs text-green-600 font-semibold bg-gradient-to-r from-green-50 to-green-100 px-3 py-1 rounded-full border border-green-200">
