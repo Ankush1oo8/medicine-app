@@ -128,7 +128,7 @@ export default function CartPage() {
         )}
       </div>
 
-      <div className="rounded-3xl border bg-gradient-to-br from-card to-muted/20 shadow-lg overflow-hidden animate-fade-in">
+      <div className="rounded-3xl border bg-linear-to-br from-card to-muted/20 shadow-lg overflow-hidden animate-fade-in">
         {items.length === 0 ? (
           <div className="p-20 text-center">
             <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-muted/50 to-muted/30 mb-6">
@@ -160,7 +160,7 @@ export default function CartPage() {
                       <img
                         src={it.image || "/placeholder.svg?height=80&width=80&query=medicine"}
                         alt=""
-                        className="size-20 rounded-xl bg-gradient-to-br from-muted to-muted/50 object-contain shadow-sm"
+                        className="size-20 rounded-xl bg-linear-to-br from-muted to-muted/50 object-contain shadow-sm"
                       />
                       {it.discountPercent && it.discountPercent > 0 && (
                         <div className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-semibold">
@@ -203,7 +203,7 @@ export default function CartPage() {
                         variant="outline"
                         size="sm"
                         onClick={() => remove(it.id)}
-                        className="rounded-full border-destructive/20 text-destructive hover:bg-destructive hover:text-destructive-foreground"
+                        className="rounded-full border-red-300 text-red-600 hover:bg-red-600 hover:text-white"
                         disabled={checkingOut}
                       >
                         Remove
@@ -234,7 +234,7 @@ export default function CartPage() {
               <Button
                 variant="outline"
                 onClick={clear}
-                className="rounded-full border-destructive/20 text-destructive hover:bg-destructive hover:text-destructive-foreground"
+                className="rounded-full border-red-300 text-red-600 hover:bg-red-600 hover:text-white"
                 disabled={checkingOut}
               >
                 Clear Cart

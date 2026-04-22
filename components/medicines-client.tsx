@@ -83,7 +83,7 @@ export function MedicinesClient() {
       </div>
 
       {loading ? (
-        <div className="mt-8 rounded-3xl border bg-gradient-to-br from-card to-muted/30 p-12 text-center shadow-lg animate-fade-in">
+        <div className="mt-8 rounded-3xl border bg-linear-to-br from-card to-muted/30 p-12 text-center shadow-lg animate-fade-in">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 mb-4">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
           </div>
@@ -91,7 +91,7 @@ export function MedicinesClient() {
           <p className="text-sm text-muted-foreground mt-1">Please wait while we fetch the latest products</p>
         </div>
       ) : error ? (
-        <div className="mt-8 rounded-3xl border bg-gradient-to-br from-destructive/5 to-destructive/10 p-12 text-center shadow-lg animate-fade-in">
+        <div className="mt-8 rounded-3xl border bg-linear-to-br from-destructive/5 to-destructive/10 p-12 text-center shadow-lg animate-fade-in">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-destructive/10 mb-4">
             <X className="h-8 w-8 text-destructive" />
           </div>
@@ -105,7 +105,7 @@ export function MedicinesClient() {
           </button>
         </div>
       ) : list.length === 0 ? (
-        <div className="mt-8 rounded-3xl border bg-gradient-to-br from-card to-muted/30 p-12 text-center shadow-lg animate-fade-in">
+        <div className="mt-8 rounded-3xl border bg-linear-to-br from-card to-muted/30 p-12 text-center shadow-lg animate-fade-in">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-muted mb-4">
             <Search className="h-8 w-8 text-muted-foreground" />
           </div>

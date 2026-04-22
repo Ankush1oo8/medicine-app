@@ -20,19 +20,19 @@ export function SiteHeader() {
   const isActive = (href: string) => pathname === href || (href !== "/" && pathname?.startsWith(href))
 
   return (
-    <header className="sticky top-0 z-50 border-b bg-background/70 supports-[backdrop-filter]:bg-background/60 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b bg-white/80 supports-backdrop-filter:bg-white/60 backdrop-blur-md shadow-sm">
       <div className="mx-auto max-w-6xl px-4">
         <div className="flex h-14 items-center justify-between">
-          <Link href="/" className="font-semibold text-lg tracking-tight transition-colors hover:opacity-90">
-            Order@VPA
+          <Link href="/" className="font-bold text-xl tracking-tight transition-all duration-300 hover:scale-105 hover:text-teal-600">
+            <span className="text-teal-600">Order</span><span className="text-slate-700">@VPA</span>
           </Link>
 
           {/* Desktop links */}
-          <nav className="hidden md:flex items-center gap-2 text-sm font-medium">
+          <nav className="hidden md:flex items-center gap-1 text-sm font-medium">
             <Link
               className={cn(
-                "relative px-4 py-2 rounded-xl transition-all duration-300 hover:bg-primary/10 hover:text-primary hover:shadow-sm",
-                isActive("/") && "text-primary bg-primary/10 shadow-md ring-1 ring-primary/20",
+                "relative px-4 py-2 rounded-full transition-all duration-300 hover:bg-teal-50 hover:text-teal-600",
+                isActive("/") && "text-teal-600 bg-teal-50 shadow-md ring-1 ring-teal-200",
               )}
               href="/"
             >
@@ -40,8 +40,8 @@ export function SiteHeader() {
             </Link>
             <Link
               className={cn(
-                "relative px-4 py-2 rounded-xl transition-all duration-300 hover:bg-primary/10 hover:text-primary hover:shadow-sm",
-                isActive("/medicines") && "text-primary bg-primary/10 shadow-md ring-1 ring-primary/20",
+                "relative px-4 py-2 rounded-full transition-all duration-300 hover:bg-teal-50 hover:text-teal-600",
+                isActive("/medicines") && "text-teal-600 bg-teal-50 shadow-md ring-1 ring-teal-200",
               )}
               href="/medicines"
             >
@@ -49,8 +49,8 @@ export function SiteHeader() {
             </Link>
             <Link
               className={cn(
-                "relative px-4 py-2 rounded-xl transition-all duration-300 hover:bg-primary/10 hover:text-primary hover:shadow-sm",
-                isActive("/about") && "text-primary bg-primary/10 shadow-md ring-1 ring-primary/20",
+                "relative px-4 py-2 rounded-full transition-all duration-300 hover:bg-teal-50 hover:text-teal-600",
+                isActive("/about") && "text-teal-600 bg-teal-50 shadow-md ring-1 ring-teal-200",
               )}
               href="/about"
             >
@@ -58,8 +58,8 @@ export function SiteHeader() {
             </Link>
             <Link
               className={cn(
-                "relative px-4 py-2 rounded-xl transition-all duration-300 hover:bg-primary/10 hover:text-primary hover:shadow-sm",
-                isActive("/contact") && "text-primary bg-primary/10 shadow-md ring-1 ring-primary/20",
+                "relative px-4 py-2 rounded-full transition-all duration-300 hover:bg-teal-50 hover:text-teal-600",
+                isActive("/contact") && "text-teal-600 bg-teal-50 shadow-md ring-1 ring-teal-200",
               )}
               href="/contact"
             >
@@ -68,8 +68,8 @@ export function SiteHeader() {
             {user && (
               <Link
                 className={cn(
-                  "relative px-4 py-2 rounded-xl transition-all duration-300 hover:bg-primary/10 hover:text-primary hover:shadow-sm",
-                  isActive("/orders") && "text-primary bg-primary/10 shadow-md ring-1 ring-primary/20",
+                  "relative px-4 py-2 rounded-full transition-all duration-300 hover:bg-teal-50 hover:text-teal-600",
+                  isActive("/orders") && "text-teal-600 bg-teal-50 shadow-md ring-1 ring-teal-200",
                 )}
                 href="/orders"
               >
@@ -79,19 +79,19 @@ export function SiteHeader() {
           </nav>
 
           {/* Desktop icon group */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2">
             <Link
               href="/cart"
               aria-label="Cart"
               className={cn(
-                "relative inline-flex h-10 w-10 items-center justify-center rounded-full border hover:bg-muted transition-colors",
-                isActive("/cart") && "ring-2 ring-primary/30",
+                "relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white hover:bg-teal-50 hover:border-teal-300 hover:text-teal-600 transition-all duration-300",
+                isActive("/cart") && "ring-2 ring-teal-300 bg-teal-50 border-teal-300",
               )}
               title="Cart"
             >
               <ShoppingCart className="h-5 w-5" aria-hidden="true" />
               {items.length > 0 && (
-                <span className="absolute -top-1 -right-1 rounded-full bg-primary text-primary-foreground text-[10px] px-1.5 py-0.5">
+                <span className="absolute -top-1 -right-1 rounded-full bg-teal-600 text-white text-[10px] px-1.5 py-0.5 font-semibold">
                   {items.length}
                 </span>
               )}
@@ -103,14 +103,14 @@ export function SiteHeader() {
                 href="/profile"
                 aria-label="Profile"
                 className={cn(
-                  "inline-flex h-10 w-10 items-center justify-center rounded-full border hover:bg-muted transition-colors",
-                  isActive("/profile") && "ring-2 ring-primary/30",
+                  "inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white hover:bg-teal-50 hover:border-teal-300 transition-all duration-300",
+                  isActive("/profile") && "ring-2 ring-teal-300 bg-teal-50 border-teal-300",
                 )}
                 title="Profile"
               >
                 <Avatar className="h-9 w-9">
                   <AvatarImage src={profile?.profilePhotoUrl || "/generic-user-avatar.jpg"} alt="Profile" />
-                  <AvatarFallback>
+                  <AvatarFallback className="bg-teal-100 text-teal-600">
                     <User2 className="h-4 w-4" />
                   </AvatarFallback>
                 </Avatar>
@@ -121,8 +121,8 @@ export function SiteHeader() {
                 href="/login"
                 aria-label="Login"
                 className={cn(
-                  "inline-flex h-10 items-center gap-2 rounded-full border px-4 hover:bg-muted transition-colors",
-                  isActive("/login") && "ring-2 ring-primary/30",
+                  "inline-flex h-10 items-center gap-2 rounded-full border border-slate-200 bg-white px-4 hover:bg-teal-50 hover:border-teal-300 hover:text-teal-600 transition-all duration-300 font-medium",
+                  isActive("/login") && "ring-2 ring-teal-300 bg-teal-50 border-teal-300",
                 )}
                 title="Login"
               >
@@ -132,9 +132,9 @@ export function SiteHeader() {
             )}
           </div>
 
-          {/* Mobile collapse button (no icons) */}
+          {/* Mobile collapse button */}
           <button
-            className="md:hidden rounded-md px-3 py-2 text-sm bg-primary text-primary-foreground transition-colors hover:opacity-90"
+            className="md:hidden rounded-full px-4 py-2 text-sm bg-teal-600 text-white transition-all duration-300 hover:bg-teal-700 hover:shadow-lg"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="mobile-nav"
@@ -149,17 +149,17 @@ export function SiteHeader() {
       <div
         id="mobile-nav"
         className={cn(
-          "md:hidden border-t bg-background/70 supports-[backdrop-filter]:bg-background/60 backdrop-blur",
+          "md:hidden border-t bg-white/95 supports-backdrop-filter:bg-white/80 backdrop-blur-md shadow-lg",
           open ? "block" : "hidden",
         )}
       >
-        <div className="mx-auto max-w-6xl px-4 py-3">
-          <div className="flex flex-col gap-3 text-sm">
+        <div className="mx-auto max-w-6xl px-4 py-4">
+          <div className="flex flex-col gap-2 text-sm">
             <Link
               onClick={() => setOpen(false)}
               className={cn(
-                "transition-colors underline-offset-8 hover:underline",
-                isActive("/") && "text-primary font-medium",
+                "px-4 py-3 rounded-xl transition-all duration-300",
+                isActive("/") ? "text-teal-600 font-semibold bg-teal-50" : "text-slate-600 hover:bg-slate-50",
               )}
               href="/"
             >
@@ -168,8 +168,8 @@ export function SiteHeader() {
             <Link
               onClick={() => setOpen(false)}
               className={cn(
-                "transition-colors underline-offset-8 hover:underline",
-                isActive("/medicines") && "text-primary font-medium",
+                "px-4 py-3 rounded-xl transition-all duration-300",
+                isActive("/medicines") ? "text-teal-600 font-semibold bg-teal-50" : "text-slate-600 hover:bg-slate-50",
               )}
               href="/medicines"
             >
@@ -178,8 +178,8 @@ export function SiteHeader() {
             <Link
               onClick={() => setOpen(false)}
               className={cn(
-                "transition-colors underline-offset-8 hover:underline",
-                isActive("/about") && "text-primary font-medium",
+                "px-4 py-3 rounded-xl transition-all duration-300",
+                isActive("/about") ? "text-teal-600 font-semibold bg-teal-50" : "text-slate-600 hover:bg-slate-50",
               )}
               href="/about"
             >
@@ -188,42 +188,40 @@ export function SiteHeader() {
             <Link
               onClick={() => setOpen(false)}
               className={cn(
-                "transition-colors underline-offset-8 hover:underline",
-                isActive("/contact") && "text-primary font-medium",
+                "px-4 py-3 rounded-xl transition-all duration-300",
+                isActive("/contact") ? "text-teal-600 font-semibold bg-teal-50" : "text-slate-600 hover:bg-slate-50",
               )}
               href="/contact"
             >
               Contact
             </Link>
             {user && (
-              <>
-                <Link
-                  onClick={() => setOpen(false)}
-                  className={cn(
-                    "transition-colors underline-offset-8 hover:underline",
-                    isActive("/orders") && "text-primary font-medium",
-                  )}
-                  href="/orders"
-                >
-                  Orders
-                </Link>
-              </>
+              <Link
+                onClick={() => setOpen(false)}
+                className={cn(
+                  "px-4 py-3 rounded-xl transition-all duration-300",
+                  isActive("/orders") ? "text-teal-600 font-semibold bg-teal-50" : "text-slate-600 hover:bg-slate-50",
+                )}
+                href="/orders"
+              >
+                Orders
+              </Link>
             )}
-            {/* mobile icon row remains as the way to access profile/cart */}
-            <div className="flex items-center gap-3 pt-2">
+            {/* mobile icon row */}
+            <div className="flex items-center gap-3 pt-3 border-t mt-2">
               <Link
                 href="/cart"
                 aria-label="Cart"
                 className={cn(
-                  "relative inline-flex h-10 w-10 items-center justify-center rounded-full border hover:bg-muted transition-colors",
-                  isActive("/cart") && "bg-muted",
+                  "relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white hover:bg-teal-50 transition-all duration-300",
+                  isActive("/cart") && "bg-teal-50 border-teal-300",
                 )}
                 onClick={() => setOpen(false)}
                 title="Cart"
               >
                 <ShoppingCart className="h-5 w-5" />
                 {items.length > 0 && (
-                  <span className="absolute -top-1 -right-1 rounded-full bg-primary text-primary-foreground text-[10px] px-1.5 py-0.5">
+                  <span className="absolute -top-1 -right-1 rounded-full bg-teal-600 text-white text-[10px] px-1.5 py-0.5 font-semibold">
                     {items.length}
                   </span>
                 )}
@@ -233,15 +231,15 @@ export function SiteHeader() {
                   href="/profile"
                   aria-label="Profile"
                   className={cn(
-                    "inline-flex h-10 w-10 items-center justify-center rounded-full border hover:bg-muted transition-colors",
-                    isActive("/profile") && "bg-muted",
+                    "inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white hover:bg-teal-50 transition-all duration-300",
+                    isActive("/profile") && "bg-teal-50 border-teal-300",
                   )}
                   onClick={() => setOpen(false)}
                   title="Profile"
                 >
-                  <Avatar className="h-7 w-7">
+                  <Avatar className="h-8 w-8">
                     <AvatarImage src={profile?.profilePhotoUrl || "/generic-user-avatar.jpg"} alt="Profile" />
-                    <AvatarFallback className="text-[10px]">PR</AvatarFallback>
+                    <AvatarFallback className="bg-teal-100 text-teal-600 text-xs">PR</AvatarFallback>
                   </Avatar>
                 </Link>
               ) : (
@@ -249,8 +247,8 @@ export function SiteHeader() {
                   href="/login"
                   aria-label="Login"
                   className={cn(
-                    "inline-flex h-10 items-center gap-2 rounded-full border px-4 hover:bg-muted transition-colors",
-                    isActive("/login") && "bg-muted",
+                    "inline-flex h-11 items-center gap-2 rounded-full border border-slate-200 bg-white px-4 hover:bg-teal-50 transition-all duration-300 font-medium",
+                    isActive("/login") && "bg-teal-50 border-teal-300",
                   )}
                   onClick={() => setOpen(false)}
                   title="Login"
