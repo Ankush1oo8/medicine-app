@@ -39,34 +39,86 @@ const setLocal = (k: string, v: unknown) => {
   window.localStorage.setItem(k, JSON.stringify(v))
 }
 
-export function calcItemTotals(mrp: number, gstStr = "5%", ptr?: number, quote?: number, discountPercent?: number) {
+export function calcItemTotals(
+  mrp: number,
+  gstStr: string | null = "5%",
+  ptr?: number,
+  quote?: number,
+  discountPercent?: number
+) {
   const round2 = (val: number) => Number(val.toFixed(2))
-  const gstPercent = Number(gstStr.replace("%", "")) || 0
-  const exceptGst = (mrp * 100) / (100 + gstPercent)
 
-  let ptrPrice: number
-  if (typeof ptr === "number") {
-    ptrPrice = (exceptGst * (100 - ptr)) / 100
+  let gstPercent: number
+  let exceptGst: number
+
+  // ---------- GST & base price ----------
+  if (gstStr && gstStr.length > 0) {
+    gstPercent = Number(gstStr.replace("%", "")) || 0
+    exceptGst = round2((mrp * 100) / (100 + gstPercent))
   } else {
-    // default 20% discount
-    ptrPrice = exceptGst * 0.8
+    const safePtr = ptr ?? mrp * 0.8
+    exceptGst = round2(safePtr / 0.8)
+    gstPercent = round2((mrp * 100) / exceptGst - 100)
   }
 
+  // ---------- PTR ----------
+  const ptrPrice = round2(ptr ?? exceptGst * 0.8)
+
+  // ---------- DISCOUNT ----------
   if (typeof discountPercent === "number") {
-    const afterDiscount = (ptrPrice * (100 - discountPercent)) / 100
-    const gstAfter = (afterDiscount * gstPercent) / 100
-    const total = afterDiscount + gstAfter
-    return { gst: round2(gstAfter), total: round2(total), ptrPrice, afterDiscount: round2(afterDiscount) }
-  } else if (typeof quote === "number") {
-    const quotePercent = ((ptrPrice - quote) * 100) / ptrPrice
-    const gstAfter = (quote * gstPercent) / 100
-    const total = quote + gstAfter
-    return { gst: round2(gstAfter), total: round2(total), ptrPrice, quotePercent: round2(quotePercent) }
+    const afterDiscount = round2(
+      (ptrPrice * (100 - discountPercent)) / 100
+    )
+
+    const gstAfter = round2(
+      (afterDiscount * gstPercent) / 100
+    )
+
+    const total = round2(afterDiscount + gstAfter)
+
+    return {
+      gst: gstAfter,
+      total,
+      ptrPrice,
+      afterDiscount,
+      gstPercent,
+    }
   }
 
-  const gstAfter = (ptrPrice * gstPercent) / 100
-  const total = ptrPrice + gstAfter
-  return { gst: round2(gstAfter), total: round2(total), ptrPrice }
+  // ---------- QUOTE ----------
+  if (typeof quote === "number") {
+    const quoteRounded = round2(quote)
+
+    const quotePercent =
+      ptrPrice > 0
+        ? round2(((ptrPrice - quoteRounded) * 100) / ptrPrice)
+        : 0
+
+    const gstAfter = round2(
+      (quoteRounded * gstPercent) / 100
+    )
+
+    const total = round2(quoteRounded + gstAfter)
+
+    return {
+      gst: gstAfter,
+      total,
+      ptrPrice,
+      quotePercent,
+      gstPercent,
+    }
+  }
+
+  // ---------- DEFAULT ----------
+  const gstAfter = round2((ptrPrice * gstPercent) / 100)
+  const total = round2(ptrPrice + gstAfter)
+
+  return {
+    gst: gstAfter,
+    total,
+    ptrPrice,
+    gstPercent,
+  }
 }
 
 export function useCart() {

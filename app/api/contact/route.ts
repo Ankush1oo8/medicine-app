@@ -38,7 +38,7 @@ Sent at: ${new Date().toISOString()}
     // Email options
     const mailOptions = {
       from: process.env.EMAIL_USER,
-      to: 'aagamlogin@gmail.com',
+      to: 'ayushdarda@gmail.com',
       subject: `Contact Form: ${subject || 'New Message'}`,
       text: emailContent,
     }
